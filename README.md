@@ -85,10 +85,8 @@ Please refer to Mockup.png image file
 Database: smart_grocery_tracker
 
 Table 1: Users --> id, first_name, last_name, username, password, created_at
-Table 2: Grocery Items --> id, user_id, item_name, quanity, category, expiration_date (optional), status (available, low, finished, expired), added_at, updated_at
-Table 3: Shopping List Table --> id, user_id, item_name, quantity, status, created_at
-Table 4: Alerts Table(Low stock/Finished item alerts) --> id, user_id, item_name, status (low, finished, expired), alert_date
-Table 5: User Preference Table --> id, user_id, item_id, item_name, threshold for qty, threshold for alert 
+Table 2: Grocery Items --> id, user_id, item_name, quanity, category, expiration_date (optional), status (available, low, finished, expired),threshold for qty, threshold for alert , added_at, updated_at
+Table 3: Alerts Table(Low stock/Finished item alerts) --> id, user_id, item_name, status (low, finished, expired), alert_date
 
 ### Endpoints
 
