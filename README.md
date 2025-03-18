@@ -137,27 +137,37 @@ HTTP 401:
 }
 
 
+iii. Sign out??
+
 **Grocery Tracker API:**
 i. POST api/grocery/add --> Add new grocery items
 
 request body:
 {
+    id:1,
     item_name: Apples,
-    qty: 6 ct,
+    qty: 6,
+    unit: ct,
     category: fruits,
     status: available,
     expiration_date: //optional,
+    threshold_qty: 2,
+    threshold_alert: //optional
 }
 
 response body:
 
 HTTP 200 OK
 {
+     id:1,
+     user_id:1,
     item_name: Apples,
     qty: 6 ct,
     category: Fruits,
     status: Available,
     expiration_date: N/A
+    threshold_qty:2,
+    threshold_alert: date/timestamp,
     added_at: timestamp
 }
 
@@ -175,6 +185,8 @@ response body: HTTP 200 OK
         category: fruits, 
         expiration_date:N/A,
         status: available,
+        threshold_qty:1,
+        threshold_alert: date/timestamp,
         added_at:timestamp
     },
 
@@ -185,6 +197,8 @@ response body: HTTP 200 OK
         quantity: 5 ct,
         expiration_date: 15 Mar 2025,
         status: low,
+        threshold_qty:1,
+        threshold_alert: date/timestamp,
         added_at: timestamp
     },
 
@@ -206,11 +220,15 @@ response body: HTTP 200 OK
 iii. PUT api/grocery/update/:id --> Update grocery item quantity
 request body:
 {
+    id:1,
+    user_id:1,
     item_name: Apples,
     qty: 7 ct,
     category: fruits,
     status: available,
     expiration_date: //optional,
+    threshold_qty:1,
+    threshold_alert: date/timestamp,
 }
 
 response body:
@@ -226,23 +244,35 @@ HTTP 200 OK
     expiration_date: N/A
     added_at: timestamp
     updated_at: timestamp
+    threshold_qty:1,
+    threshold_alert: date/timestamp,
 }
 
 HTTP 400: Bad request (If any of the mandatory fields are empty or values do not satisfy validation)
 
-iv. DELETE api/shopping-list --> Clear shopping list from the page
+iv. DELETE api/grocery/:id --> 
 
 request body:
 {
+    id:1,
+    user_id:1,
     item_name: Apples,
     qty: 7 ct,
     category: fruits,
     status: available,
     expiration_date: //optional,
+    threshold_qty:1,
+    threshold_alert: date/timestamp,
 }
 
 response body: 204 No Content
 
+
+Function Name	HTTP Method	Endpoint	Description
+addGroceryItem	POST	/api/grocery/add	Add a new grocery item
+getGroceryItems	GET	/api/grocery	Retrieve all grocery items for the logged-in user
+updateGroceryItem	PUT	/api/grocery/:id	Update an existing grocery item
+deleteGroceryItem	DELETE	/api/grocery/:id	Delete a grocery item
 
 **Shopping List API**
 i. GET api/shopping-list --> Generate a shopping list for low stock items or items having closer expiry date
@@ -278,8 +308,7 @@ HTTP 200 OK
 
 ]
 
-ii. DELETE api/shopping-list --> Clear shopping list from the page
-
+ii. DELETE api/shopping-list --> Clear shopping list from the page -- Not implmenting this as I will be using useState to make the list disappear from the front-end UI. 
 Request body:
 [
     {
@@ -312,6 +341,8 @@ Request body:
 
 Response: 204 No Content
 
+
+iii. Delete single item from shopping list
 
 **Low Stock Alert API**
 i. GET /alerts --> Get items that are running low or finished
