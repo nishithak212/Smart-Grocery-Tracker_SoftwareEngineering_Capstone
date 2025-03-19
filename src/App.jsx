@@ -1,15 +1,18 @@
-//import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-// import './App.css'
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { useContext } from "react";
+import Navbar from "./components/Navbar/Navbar";
+import { AuthContext } from "./context/AuthContext";
 
-function App() {
-  // const [count, setCount] = useState(0)
+const App =()=> {
+  const {user} = useContext(AuthContext);
 
   return (
-    <>
-      <h1>Smart Grocery Tracker Application-Frontend</h1>
-    </>
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={user ? <Navigate to="/grocery-items" /> : <Navigate to="/login" />} />
+      </Routes>
+      </Router>
   )
 }
 
