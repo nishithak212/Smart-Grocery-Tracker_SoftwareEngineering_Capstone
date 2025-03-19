@@ -44,7 +44,7 @@ const SignUp = () =>{
         <div>
             <h2>Sign Up</h2>
             <form onSubmit={handleSubmit}>
-                <input type="text" name="first_name" placeholder="First Name" onChange={handleChange} required />
+                <input label="FirstName:" type="text" name="first_name" placeholder="First Name" onChange={handleChange} required />
                 <input type="text" name="last_name" placeholder="Last Name" onChange={handleChange} required />
                 <input type="text" name="username" placeholder="Userame" onChange={handleChange} required />
                 <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
