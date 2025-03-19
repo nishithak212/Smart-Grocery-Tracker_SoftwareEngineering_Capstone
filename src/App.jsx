@@ -2,8 +2,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import { useContext } from "react";
 import Navbar from "./components/Navbar/Navbar";
 import { AuthContext } from "./context/AuthContext";
-import SignUp from "./pages/SignUp/SignUp";
-import Login from "./pages/Login/Login";
+import SignUpPage from "./pages/SignUpPage/SignUpPage";
+import LoginPage from "./pages/LoginPage/LoginPage";
 
 const App =()=> {
   const {user} = useContext(AuthContext);
@@ -13,8 +13,8 @@ const App =()=> {
       <Navbar />
       <Routes>
         <Route path="/" element={user ? <Navigate to="/grocery-items" /> : <Navigate to="/login" />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
       </Router>
   )
