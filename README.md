@@ -392,7 +392,8 @@ iv. DELETE api/grocery/delete/:id --> Remove an item
 
 Shopping List API
 i. GET api/shopping-list --> Generate a shopping list for low stock items or items having closer expiry date
-ii. DELETE api/shopping-list --> Clear shopping list from the page
+ii. DELETE api/shopping-list --> Clear shopping list from the page- not required
+iii. Delete single item from shopping list
 
 Low Stock Alert API
 i. GET /alerts --> Get items that are running low or finished
