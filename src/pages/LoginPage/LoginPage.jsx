@@ -13,17 +13,34 @@ const Login = () => {
         setCredentials({...credentials, [e.target.name]: e.target.value});
     }
 
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     try{
+    //         await axios.post(`${API_URL}/users/login`, credentials);
+    //         setUser(credentials.username);
+    //         navigate("/grocery-items");
+    //     } catch (error) {
+    //         console.error("Login error:", error.response?.data?.error || "Server not responding");
+    //     }
+    // };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try{
-            await axios.post(`${API_URL}/users/login`, credentials);
-            setUser(credentials.username);
+            const response = await axios.post(`${API_URL}/users/login`,credentials);
+
+            //store user_id in sessionStorage
+            sessionStorage.setItem("user_id", response.data.user_id);
+
+            //update AuthContext
+            setUser(response.data.user_id);
+
             navigate("/grocery-items");
         } catch (error) {
-            console.error("Login error:", error.response?.data?.error || "Server not responding");
+            console.error("Login error:",  error.response?.data?.error);
         }
     };
-
+    
     return(
         <div>
             <h2>Login</h2>

@@ -1,14 +1,17 @@
 import {Link, useNavigate} from "react-router-dom";
-import { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
+// import { useContext } from "react";
+// import { AuthContext } from "../../context/AuthContext";
 
 const Navbar = () => {
 
-    const {user, logout} = useContext(AuthContext);
+   // const {user, logout} = useContext(AuthContext);
     const navigate = useNavigate();
 
+    const user = sessionStorage.getItem("user_id");
+
     const handleLogout = () =>{
-        logout();
+        sessionStorage.removeItem("user_id"); //to clear session storage
+        //logout();
         navigate("/login"); //redirects to login page after logout
     };
 
