@@ -5,7 +5,7 @@ import { AuthContext } from "../../context/AuthContext.jsx";
 import { API_URL } from "../../config.js";
 
 const Login = () => {
-    const [credentials, setCredentials] = useState({usernmae: "" , password: ""});
+    const [credentials, setCredentials] = useState({username: "" , password: ""});
     const {setUser} = useContext(AuthContext);
     const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ const Login = () => {
             setUser(credentials.username);
             navigate("/grocery-items");
         } catch (error) {
-            console.error("Login error:", error.response.data.error);
+            console.error("Login error:", error.response?.data?.error || "Server not responding");
         }
     };
 
