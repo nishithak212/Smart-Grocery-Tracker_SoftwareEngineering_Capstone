@@ -10,18 +10,17 @@ const GroceryItems = () => {
   //  Async function to fetch grocery items
   const fetchGroceryItems = async () => {
     try {
-
-        const user_id= sessionStorage.getItem("user_id"); //Get user_id from sessionStorage
-        if(!user_id){
-            throw new Error("User is not logged in");
-        }
+      const user_id = sessionStorage.getItem("user_id"); //Get user_id from sessionStorage
+      if (!user_id) {
+        throw new Error("User is not logged in");
+      }
 
       const response = await axios.get(`${API_URL}/grocery`, {
-      //  withCredentials: true,
+        //  withCredentials: true,
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${user_id}`, //send user_id in request
-        }, 
+          Authorization: `Bearer ${user_id}`, //send user_id in request
+        },
       });
       setItems(response.data);
     } catch (error) {
