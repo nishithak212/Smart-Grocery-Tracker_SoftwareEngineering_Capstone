@@ -40,7 +40,7 @@ ii. Categorize groceries (e.g., dairy., vegetables, snacks) for better organizat
 2. Smart Low-Stock Alerts:
 In-App alerts/notifications when items are running low or have run out or expired.
 
-3. One-Click Auto-Generated  Shopping Lists
+3. Auto-Generated  Shopping Lists
 i. Instantly generate a custom shoppong list based on low-stock items.
 ii. Saves time by elimination manual list-making.
 

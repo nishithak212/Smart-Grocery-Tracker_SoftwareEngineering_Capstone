@@ -12,6 +12,7 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import ProtectedRoutes from "./components/ProtectedRoutes/ProtectedRoutes";
 import GroceryItemsPage from "./pages/GroceryItemsPage/GroceryItemsPage";
 import ShoppingListPage from "./pages/ShoppingListPage/ShoppingListPage";
+import NotificationsPage from "./pages/NotificationsPage/NotificationsPage";
 import { useEffect, useState } from "react";
 
 const App = () => {
@@ -27,16 +28,15 @@ const App = () => {
       setUser(sessionStorage.getItem("user_id"));
     };
 
+    // useEffect(()=>{
+    //   const handleStorageChange = () => {
+    //     setUser(sessionStorage.getItem("user_id"));
+    //   };
 
-  // useEffect(()=>{
-  //   const handleStorageChange = () => {
-  //     setUser(sessionStorage.getItem("user_id"));
-  //   };
+    window.addEventListener("storage", handleStorageChange);
 
-window.addEventListener("storage", handleStorageChange);
-
-    return() => {
-      window.removeEventListener("storage",handleStorageChange);
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
     };
   }, []);
 
@@ -54,10 +54,10 @@ window.addEventListener("storage", handleStorageChange);
         <Route path="/login" element={<LoginPage />} />
 
         {/* Protected Routes - Require Authentication */}
-        <Route element={<ProtectedRoutes user={user} />}>
-          <Route path="/grocery-items" element={<GroceryItemsPage />} />
-          <Route path="/shopping-list" element={<ShoppingListPage />} />
-        </Route>
+        <Route element={<ProtectedRoutes user={user} />} />
+        <Route path="/grocery-items" element={<GroceryItemsPage />} />
+        <Route path="/shopping-list" element={<ShoppingListPage />} />
+        <Route path="/notifications" element={<NotificationsPage />} />
       </Routes>
     </Router>
   );
