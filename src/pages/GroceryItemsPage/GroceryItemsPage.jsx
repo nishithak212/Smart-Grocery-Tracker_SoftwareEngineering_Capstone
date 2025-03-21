@@ -2,6 +2,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { API_URL } from "../../config.js";
 import { formatDate, formatForInputDate } from "../../utils/formatDate.js";
+import sortup from "../../assets/sort-up-solid.svg";
+import sortdown from "../../assets/sort-down-solid.svg";
+import sort from "../../assets/sort-solid.svg";
+//import filterIcon from "../../assets/filter-solid.svg";
 
 const GroceryItems = () => {
   const [items, setItems] = useState([]);
@@ -19,13 +23,18 @@ const GroceryItems = () => {
     threshold_qty: "",
     threshold_alert: "",
   });
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortKey, setSortKey] = useState(null);
+  const [sortOrder, setSortOrder] = useState("asc");
+  const [statusFilter, setStatusFilter] = useState("");
+  const [itemFilter, setItemFilter] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("");
 
   const user_id = sessionStorage.getItem("user_id");
 
   //  Async function to fetch grocery items
   const fetchGroceryItems = async () => {
     try {
-      //const user_id = sessionStorage.getItem("user_id"); //Get user_id from sessionStorage
       if (!user_id) {
         throw new Error("User is not logged in");
       }
@@ -91,6 +100,7 @@ const GroceryItems = () => {
 
       setShowForm(false);
       setEditingItem(null);
+      resetForm();
       setFormData({
         item_name: "",
         quantity: "",
@@ -136,16 +146,145 @@ const GroceryItems = () => {
     }
   };
 
+  const resetForm = () => {
+    setFormData({
+      item_name: "",
+      quantity: "",
+      unit: "",
+      category: "",
+      expiration_date: "",
+      threshold_qty: "",
+      threshold_alert: "",
+    });
+  };
+
+  const handleSort = (key) => {
+    if (sortKey === key) {
+      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+    } else {
+      setSortKey(key);
+      setSortOrder("asc");
+    }
+  };
+
+  const getSortIcon = (key) => {
+    if (sortKey === key) return <img src={sort} alt="sort" width="12" />;
+    return sortOrder === "asc" ? (
+      <img src={sortup} alt="Sort Ascending" width="12" />
+    ) : (
+      <img src={sortdown} alt="Sort Descending" width="12" />
+    );
+  };
+
+  const filteredItems = items
+    .filter((item) =>
+      item.item_name.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .filter((item) => (itemFilter ? item.item_name === itemFilter : true))
+    .filter((item) =>
+      categoryFilter ? item.category === categoryFilter : true
+    )
+    .filter((item) =>
+      categoryFilter ? item.category === categoryFilter : true
+    )
+    .filter((item) => (statusFilter ? item.status === statusFilter : true));
+
+  const sortedItems = [...filteredItems].sort((a, b) => {
+    if (!sortKey) return 0;
+    let aVal = a[sortKey];
+    let bVal = b[sortKey];
+
+    if (sortKey === "expiration_date") {
+      aVal = new Date(aVal);
+      bVal = new Date(bVal);
+    } else {
+      aVal = aVal?.toString().toLowerCase();
+      bVal = bVal?.toString().toLowerCase();
+    }
+
+    if (aVal < bVal) return sortOrder === "asc" ? -1 : 1;
+    if (aVal > bVal) return sortOrder === "asc" ? 1 : -1;
+    return 0;
+  });
+
+  const uniqueItem = [...new Set(items.map((item) => item.item_name))];
+  const uniqueCategories = [...new Set(items.map((item) => item.category))];
+  const uniqueStatuses = [...new Set(items.map((item) => item.status))];
+
   return (
     <div>
       <h2>Grocery Items</h2>
-      <button onClick={() => setShowForm(true)}>Add Item</button>
+      <input
+        type="text"
+        placeholder="Search grcoery items..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+
+      <div className="filter">
+        <p>Filters</p>
+        <select
+          value={itemFilter}
+          onChange={(e) => setItemFilter(e.target.value)}
+        >
+          <option value="">Items Filter </option>
+          {uniqueItem.map((item) => (
+            <option key={item} value={item}>
+              {item}
+            </option>
+          ))}
+        </select>
+
+        <select
+          value={categoryFilter}
+          onChange={(e) => setCategoryFilter(e.target.value)}
+        >
+          <option value="">Categories Filter</option>
+          {uniqueCategories.map((cat) => (
+            <option key={cat} value={cat}>
+              {cat}
+            </option>
+          ))}
+        </select>
+
+        <select
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+        >
+          <option value="">Status Filter</option>
+          {uniqueStatuses.map((status) => (
+            <option key={status} value={status}>
+              {status}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className="Add">
+        <button
+          onClick={() => {
+            resetForm();
+            setShowForm(true);
+            setEditingItem(null);
+            setFormData({
+              item_name: "",
+              quantity: "",
+              unit: "",
+              category: "",
+              expiration_date: "",
+              threshold_qty: "",
+              threshold_alert: "",
+            }); // Clear form values
+          }}
+        >
+          Add Item
+        </button>
+      </div>
 
       {loading ? (
         <p>Loading...</p>
       ) : error ? (
         <p>{error}</p>
-      ) : items.length === 0 ? (
+      ) : filteredItems.length === 0 ? (
         <p>
           {emptyMessage || "No grocery items found. Please add your list here!"}
         </p>
@@ -153,19 +292,28 @@ const GroceryItems = () => {
         <table>
           <thead>
             <tr>
-              <th>Item Name</th>
+              <th onClick={() => handleSort("item_name")}>
+                Item Name {getSortIcon("item_name")}
+              </th>
               <th>Qty</th>
               <th>Unit</th>
-              <th>Category</th>
-              <th>Expiry Date</th>
+              <th onClick={() => handleSort("category")}>
+                Category {getSortIcon("category")}
+              </th>
+
+              <th onClick={() => handleSort("expiration_date")}>
+                Expiry Date {getSortIcon("expiration_date")}
+              </th>
               <th>Threshold Qty</th>
               <th>Threshold Alert</th>
-              <th>Status</th>
+              <th onClick={() => handleSort("status")}>
+                Status{getSortIcon("status")}
+              </th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {items.map((item) => (
+            {sortedItems.map((item) => (
               <tr key={item.id}>
                 <td>{item.item_name}</td>
                 <td>{item.quantity}</td>
@@ -258,6 +406,16 @@ const GroceryItems = () => {
               onClick={() => {
                 setShowForm(false);
                 setEditingItem(null);
+                resetForm();
+                setFormData({
+                  item_name: "",
+                  quantity: "",
+                  unit: "",
+                  category: "",
+                  expiration_date: "",
+                  threshold_qty: "",
+                  threshold_alert: "",
+                });
               }}
             >
               Cancel

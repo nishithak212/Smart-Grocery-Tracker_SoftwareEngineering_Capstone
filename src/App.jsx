@@ -14,6 +14,7 @@ import GroceryItemsPage from "./pages/GroceryItemsPage/GroceryItemsPage";
 import ShoppingListPage from "./pages/ShoppingListPage/ShoppingListPage";
 import NotificationsPage from "./pages/NotificationsPage/NotificationsPage";
 import { useEffect, useState } from "react";
+import "./App.scss";
 
 const App = () => {
   //const { user } = useContext(AuthContext);

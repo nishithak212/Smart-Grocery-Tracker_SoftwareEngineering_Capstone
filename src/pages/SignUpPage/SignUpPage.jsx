@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { API_URL } from "../../config.js";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext.jsx";
+import "./SignUpPage.scss";
 
 const SignUp = () => {
   const { user } = useContext(AuthContext);
@@ -37,9 +38,9 @@ const SignUp = () => {
   };
 
   return (
-    <div>
+    <div className="signup-form">
       <h2>Sign Up</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="signup-form__fields">
         <input
           label="FirstName:"
           type="text"
@@ -70,6 +71,7 @@ const SignUp = () => {
           required
         />
         <button type="submit">Sign Up</button>
+        <p>Already have an account? Please <Link to="/login">Login</Link></p>
       </form>
     </div>
   );

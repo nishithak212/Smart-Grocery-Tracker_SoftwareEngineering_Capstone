@@ -1,4 +1,5 @@
 import {Link, useNavigate} from "react-router-dom";
+import "./Navbar.scss";
 // import { useContext } from "react";
 // import { AuthContext } from "../../context/AuthContext";
 
@@ -16,8 +17,8 @@ const Navbar = () => {
     };
 
     return(
-        <nav>
-            <h2>🍇🍅🍞Grocery Genie 🧞</h2>
+        <nav className ="navbar">
+            <h2>🍇🍅🍞GroceryGenie 🧞</h2>
             {user ? (
                 <ul>
                     <li><Link to="/grocery-items">Grocery Items</Link></li>
@@ -27,8 +28,8 @@ const Navbar = () => {
                 </ul>
             ) : (
                 <ul>
-                    <li><Link to="/login">Login</Link></li>
-                    <li><Link to="/signup">Sign Up</Link></li>
+                    {/* <li><Link to="/login">Login</Link></li> */}
+                    {/* <li><Link to="/signup">Sign Up</Link></li> */}
                 </ul>
             )}
         </nav>

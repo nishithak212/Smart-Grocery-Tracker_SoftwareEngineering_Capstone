@@ -17,8 +17,7 @@ According to a study conducted by Second Harvest, over 46% of all food in Canada
 Source:https://www.secondharvest.ca/post/new-report-from-second-harvest-reveals-canadas-58-billion-food-waste-problem
 
 Existing solutions rely on manual list-making or lack of automation, making grocery tracking inefficient.
-Smart Grocery Tracker solves this by providing real-time inventory management, automated in-app alerts, and once-click
-shopping list generation-- helping users save time, money and reduce waste.
+Smart Grocery Tracker solves this by providing real-time inventory management, automated in-app alerts, and automatic shopping list generation-- helping users save time, money and reduce waste.
 
 ### User Profile
 
