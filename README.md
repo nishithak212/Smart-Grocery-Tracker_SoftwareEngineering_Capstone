@@ -72,9 +72,9 @@ List the pages of your app with brief descriptions. You can show this visually, 
 1. Login Page
 2. Sign-up Page
 3. Home Page : Overview of groceries in inventory -- grocery tracker 
-4. Shopping List Page: shopping tracker with list of items need to restock
+4. Shopping List Page: shopping tracker with list of items need to restock. Set threshold for qty alert and threshold for alert n days before expiry.
 5. Notifications Page: Displays alerts for low and expired items
-6. User Preferences Page: Set threshold for qty alert and threshold for alert n days before expiry. Screen to prepopulate all items from home page
+
 
 ### Mockups
 Please refer to Mockup.png image file

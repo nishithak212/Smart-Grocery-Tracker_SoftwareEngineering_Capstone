@@ -5,8 +5,6 @@ import { API_URL } from "../../config.js";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext.jsx";
 
-//const API_URL ="http://localhost:8080/api/users/register";
-
 const SignUp = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -18,9 +16,8 @@ const SignUp = () => {
     password: "",
   });
 
-  //Check if user is already logged in
   useEffect(() => {
-    if (user) {
+    if (user && window.location.pathname !== "/signup") {
       navigate("/grocery-items"); //redirect logged-in user
     }
   }, [user, navigate]);

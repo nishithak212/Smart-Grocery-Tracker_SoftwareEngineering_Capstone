@@ -77,7 +77,7 @@ const Notifications = () => {
     <div>
       <h2>Notifications</h2>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p>{error}</p>}
 
       {Array.isArray(notifications) && notifications.length > 0 ? (
         <ul>
