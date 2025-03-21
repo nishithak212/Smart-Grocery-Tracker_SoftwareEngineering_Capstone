@@ -23,7 +23,6 @@ const Navbar = () => {
                     <li><Link to="/grocery-items">Grocery Items</Link></li>
                     <li><Link to="/shopping-list">Shopping List</Link></li>
                     <li><Link to="/notifications">Notifications</Link></li>
-                    <li><Link to="/user-preferences">User Preferences</Link></li>
                     <li><button onClick={handleLogout}> Sign Out</button></li>
                 </ul>
             ) : (
