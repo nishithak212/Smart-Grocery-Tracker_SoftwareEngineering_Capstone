@@ -1,20 +1,42 @@
-// .user-actions{
-//     display:flex;
-//     flex-direction: row;
-//     justify-content: space-between;
-
-//     &__filter{
-//         width:1.25rem;
-//     }
-// }
 
 .grocery_page{
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    padding: 2rem;
+    flex:1;
+   
+}
+
+.user-actions__search{
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-self:center;
+    opacity: 0.9;
+}
+
+.add_button{
+     button{
+    margin: 0.5rem 0 0.5rem 0;
+            padding: 0.5rem 1rem;
+            width: fit-content;
+            background-color: #ed6a5c;
+            height: 2rem;
+            width: 6rem;
+            color: white;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-weight: bold;
+
+            &:hover {
+                background-color: #3b83e0;
+            }
+}
 }
 
 .add-edit {
-   // margin:2rem auto;
-    background-color: #fffae5;
+   margin-top:2rem;
+   background-color: #fffae5;
     opacity: 0.7;
     border-radius:0.5rem;
     border-color: 1x solid #fffae5;
@@ -82,4 +104,11 @@
         padding-right:1rem;
         padding-left:0.5rem;
     }
+}
+
+.action-icon{
+    border: none;
+    padding-right:0.5rem;
+    opacity: 0.6;
+   
 }

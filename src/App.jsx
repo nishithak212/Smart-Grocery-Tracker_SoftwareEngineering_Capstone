@@ -66,8 +66,10 @@ const App = () => {
         <Route path="/notifications" element={<NotificationsPage />} />
       </Routes>
       </main>
-      <Footer />
+      <Footer /> 
       </div>
+      
+      
     </Router>
   );
 };

@@ -12,6 +12,7 @@ const Login = () => {
   });
   const { setUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -30,18 +31,24 @@ const Login = () => {
 
       navigate("/grocery-items");
     } catch (error) {
+      const errMsg = error.response?.data?.error;
+
+      if (errMsg?.includes("not registered")) {
+        setErrorMessage("User is not registered.");
+      } else if (errMsg?.includes("Credentials do not match")) {
+        setErrorMessage("Incorrect username or password. Please try again.");
+      } else {
+        setErrorMessage("Internal Server Error. Please try after sometime.");
+      }
       console.error("Login error:", error.response?.data?.error);
     }
   };
 
   return (
     <div className="login">
-      <h2 className="login__header">Login</h2>
+      {errorMessage && <div className="login__error">{errorMessage}</div>}
       <form onSubmit={handleSubmit} className="login__form">
         <div className="login__form-group">
-          {/* <label htmlFor="username" className="login__form--label">
-            Username:
-          </label> */}
           <input
             className="login__form--input"
             type="text"
@@ -52,9 +59,6 @@ const Login = () => {
           />
         </div>
         <div className="login__form-group">
-          {/* <label htmlFor="password" className="login__form--label">
-            Password:
-          </label> */}
           <input
             className="login__form--input"
             type="password"
@@ -70,7 +74,8 @@ const Login = () => {
         <p>
           Don't have an account?
           <Link to="/signup" className="signup-link">
-            {" "}Sign Up!
+            {" "}
+            Sign Up!
           </Link>
         </p>
       </form>

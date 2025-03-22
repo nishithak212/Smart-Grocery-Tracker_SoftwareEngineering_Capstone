@@ -21,6 +21,8 @@ body,
   min-height: 100vh;
   background-image: url("./assets/top-view-assortment-vegetables-paper-bag.jpg");
   background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
   background-position: center;
   color: black; 
 }

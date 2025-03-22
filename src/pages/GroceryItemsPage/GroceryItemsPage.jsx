@@ -6,7 +6,7 @@ import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import Sort from "../../components/Sort/Sort.jsx";
 import EditIcon from "../../assets/pen-solid.svg";
 import DeleteIcon from "../../assets/trash-solid.svg";
-import "../GroceryItemsPage/GroceryItemsPage.scss"
+import "../GroceryItemsPage/GroceryItemsPage.scss";
 
 const GroceryItems = () => {
   const [items, setItems] = useState([]);
@@ -151,15 +151,6 @@ const GroceryItems = () => {
     }
   };
 
-  //   const getSortIcon = (key) => {
-  //     if (sortKey === key) return <img src={sort} alt="sort" width="12" />;
-  //     return sortOrder === "asc" ? (
-  //       <img src={sortup} alt="Sort Ascending" width="12" />
-  //     ) : (
-  //       <img src={sortdown} alt="Sort Descending" width="12" />
-  //     );
-  //   };
-
   const filteredItems = items
     .filter((item) =>
       item.item_name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -196,140 +187,11 @@ const GroceryItems = () => {
 
   return (
     <div className="grocery-page">
-      <h2>Grocery Items</h2>
-
       <div className="user-actions">
         <div className="user-actions__search">
           <SearchBar onSearch={(term) => setSearchTerm(term)} />
         </div>
       </div>
-      <div className="Add">
-        <button
-          onClick={() => {
-            resetForm();
-            setShowForm(true);
-            setEditingItem(null);
-          }}
-        >
-          Add Item
-        </button>
-      </div>
-      {showForm && (
-        <div class="add-edit">
-          <h3>{editingItem ? "Edit Item" : "Add New Item"}</h3>
-          <form onSubmit={handleSubmit} class="add-edit__form">
-          <div className="add-edit__form-group">
-          <label htmlFor="item_name" className="add-edit__form--label">
-            Item Name:{" "}
-          </label>
-            <input
-              type="text"
-              name="item_name"
-              placeholder="Item Name"
-              value={formData.item_name}
-              onChange={handleChange}
-              required
-            />
-            </div>
-            <div className="add-edit__form-group">
-            <label htmlFor="quantity" className="add-edit__form--label">
-            Quantity:{" "}
-          </label>
-            <input
-              type="number"
-              name="quantity"
-              placeholder="Quantity"
-              value={formData.quantity}
-              onChange={handleChange}
-              required
-            />
-            </div>
-            <div className="add-edit__form-group">
-            <label htmlFor="unit" className="add-edit__form--label">
-            Unit:{" "}
-          </label>
-            <select
-              name="unit"
-              value={formData.unit}
-              onChange={handleChange}
-              required
-            >
-              <option value="mg">mg</option>
-              <option value="g">g</option>
-              <option value="kg">kg</option>
-              <option value="lbs">lbs</option>
-              <option value="ml">ml</option>
-              <option value="ltr">ltr</option>
-              <option value="gallon">gallon</option>
-              <option value="ct">ct</option>
-            </select>
-            </div>
-            <div className="add-edit__form-group">
-            <label htmlFor="category" className="add-edit__form--label">
-            Category:{" "}
-          </label>
-            <input
-              type="text"
-              name="category"
-              placeholder="Category"
-              value={formData.category}
-              onChange={handleChange}
-              required
-            />
-            </div>
-            <div className="add-edit__form-group">
-            <label htmlFor="expiration_date" className="add-edit__form--label">
-            Expiry Date:{" "}
-          </label>
-            <input
-              type="date"
-              name="expiration_date"
-              placeholder="Expiration Date"
-              value={formData.expiration_date}
-              onChange={handleChange}
-            />
-            </div>
-            <div className="add-edit__form-group">
-            <label htmlFor="threshold_qty" className="add-edit__form--label">
-            Threshold for Quantity:{" "}
-          </label>
-            <input
-              type="number"
-              name="threshold_qty"
-              placeholder="Threshold Quantity"
-              value={formData.threshold_qty}
-              onChange={handleChange}
-              required
-            />
-            </div>
-            <div className="add-edit__form-group">
-            <label htmlFor="threshold_alert" className="add-edit__form--label">
-            Threshold date for alert:{" "}
-          </label>
-            <input
-              type="date"
-              name="threshold_alert"
-              placeholder="Threshold Alert"
-              value={formData.threshold_alert}
-              onChange={handleChange}
-            />
-            </div>
-            <button type="submit" className="add-edit__form--submit">
-              {editingItem ? "Update Item" : "Add Item"}
-            </button>
-            <button
-              type="button" className="add-edit__form--cancel"
-              onClick={() => {
-                setShowForm(false);
-                setEditingItem(null);
-                resetForm();
-              }}
-            >
-              Cancel
-            </button>
-          </form>
-        </div>
-      )}
 
       {loading ? (
         <p>Loading...</p>
@@ -377,7 +239,6 @@ const GroceryItems = () => {
                   sortOrder={sortOrder}
                 />
               </th>
-              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -390,11 +251,22 @@ const GroceryItems = () => {
                 <td>{formatDate(item.expiration_date) || "N/A"}</td>
                 <td>{item.status}</td>
                 <td>
-                  <button onClick={() => handleEdit(item)}>
+                  <button
+                    onClick={() => handleEdit(item)}
+                    className="action-icon"
+                  >
                     <img src={EditIcon} alt="Edit-icon" width="16px"></img>
                   </button>
-                  <button onClick={() => handleDelete(item.id)}>
-                    <img src={DeleteIcon} alt="Delete-icon" width="16px"></img>
+                  <button
+                    onClick={() => handleDelete(item.id)}
+                    className="action-icon"
+                  >
+                    <img
+                      src={DeleteIcon}
+                      alt="Delete-icon"
+                      width="16px"
+                      height="16px"
+                    />
                   </button>
                 </td>
               </tr>
@@ -403,111 +275,130 @@ const GroceryItems = () => {
         </table>
       )}
 
-      {/* {showForm && (
+      <div className="add">
+        <button
+          onClick={() => {
+            resetForm();
+            setShowForm(true);
+            setEditingItem(null);
+          }}
+          className="add__button"
+        >
+          Add Item
+        </button>
+      </div>
+      {showForm && (
         <div class="add-edit">
           <h3>{editingItem ? "Edit Item" : "Add New Item"}</h3>
           <form onSubmit={handleSubmit} class="add-edit__form">
-          <div className="add-edit__form-group">
-          <label htmlFor="item_name" className="add-edit__form--label">
-            Item Name:{" "}
-          </label>
-            <input
-              type="text"
-              name="item_name"
-              placeholder="Item Name"
-              value={formData.item_name}
-              onChange={handleChange}
-              required
-            />
+            <div className="add-edit__form-group">
+              <label htmlFor="item_name" className="add-edit__form--label">
+                Item Name:{" "}
+              </label>
+              <input
+                type="text"
+                name="item_name"
+                placeholder="Item Name"
+                value={formData.item_name}
+                onChange={handleChange}
+                required
+              />
             </div>
             <div className="add-edit__form-group">
-            <label htmlFor="quantity" className="add-edit__form--label">
-            Quantity:{" "}
-          </label>
-            <input
-              type="number"
-              name="quantity"
-              placeholder="Quantity"
-              value={formData.quantity}
-              onChange={handleChange}
-              required
-            />
+              <label htmlFor="quantity" className="add-edit__form--label">
+                Quantity:{" "}
+              </label>
+              <input
+                type="number"
+                name="quantity"
+                placeholder="Quantity"
+                value={formData.quantity}
+                onChange={handleChange}
+                required
+              />
             </div>
             <div className="add-edit__form-group">
-            <label htmlFor="unit" className="add-edit__form--label">
-            Unit:{" "}
-          </label>
-            <select
-              name="unit"
-              value={formData.unit}
-              onChange={handleChange}
-              required
-            >
-              <option value="mg">mg</option>
-              <option value="g">g</option>
-              <option value="kg">kg</option>
-              <option value="lbs">lbs</option>
-              <option value="ml">ml</option>
-              <option value="ltr">ltr</option>
-              <option value="gallon">gallon</option>
-              <option value="ct">ct</option>
-            </select>
+              <label htmlFor="unit" className="add-edit__form--label">
+                Unit:{" "}
+              </label>
+              <select
+                name="unit"
+                value={formData.unit}
+                onChange={handleChange}
+                required
+              >
+                <option value="mg">mg</option>
+                <option value="g">g</option>
+                <option value="kg">kg</option>
+                <option value="lbs">lbs</option>
+                <option value="ml">ml</option>
+                <option value="ltr">ltr</option>
+                <option value="gallon">gallon</option>
+                <option value="ct">ct</option>
+              </select>
             </div>
             <div className="add-edit__form-group">
-            <label htmlFor="category" className="add-edit__form--label">
-            Category:{" "}
-          </label>
-            <input
-              type="text"
-              name="category"
-              placeholder="Category"
-              value={formData.category}
-              onChange={handleChange}
-              required
-            />
+              <label htmlFor="category" className="add-edit__form--label">
+                Category:{" "}
+              </label>
+              <input
+                type="text"
+                name="category"
+                placeholder="Category"
+                value={formData.category}
+                onChange={handleChange}
+                required
+              />
             </div>
             <div className="add-edit__form-group">
-            <label htmlFor="expiration_date" className="add-edit__form--label">
-            Expiry Date:{" "}
-          </label>
-            <input
-              type="date"
-              name="expiration_date"
-              placeholder="Expiration Date"
-              value={formData.expiration_date}
-              onChange={handleChange}
-            />
+              <label
+                htmlFor="expiration_date"
+                className="add-edit__form--label"
+              >
+                Expiry Date:{" "}
+              </label>
+              <input
+                type="date"
+                name="expiration_date"
+                placeholder="Expiration Date"
+                value={formData.expiration_date}
+                onChange={handleChange}
+              />
             </div>
             <div className="add-edit__form-group">
-            <label htmlFor="threshold_qty" className="add-edit__form--label">
-            Threshold for Quantity:{" "}
-          </label>
-            <input
-              type="number"
-              name="threshold_qty"
-              placeholder="Threshold Quantity"
-              value={formData.threshold_qty}
-              onChange={handleChange}
-              required
-            />
+              <label htmlFor="threshold_qty" className="add-edit__form--label">
+                Threshold for quantity:{" "}
+              </label>
+              <input
+                type="number"
+                name="threshold_qty"
+                placeholder="Threshold Quantity"
+                value={formData.threshold_qty}
+                onChange={handleChange}
+                required
+              />
             </div>
             <div className="add-edit__form-group">
-            <label htmlFor="threshold_alert" className="add-edit__form--label">
-            Threshold date for alert:{" "}
-          </label>
-            <input
-              type="date"
-              name="threshold_alert"
-              placeholder="Threshold Alert"
-              value={formData.threshold_alert}
-              onChange={handleChange}
-            />
+              <label
+                htmlFor="threshold_alert"
+                className="add-edit__form--label"
+              >
+                Threshold date for alert:{" "}
+              </label>
+              <input
+                type="date"
+                name="threshold_alert"
+                placeholder="Threshold Alert"
+                value={formData.threshold_alert}
+                onChange={handleChange}
+              />
             </div>
             <button type="submit" className="add-edit__form--submit">
               {editingItem ? "Update Item" : "Add Item"}
             </button>
             <button
-              type="button" className="add-edit__form--cancel"
+              type="button"
+              className="add-edit__form--cancel"
               onClick={() => {
                 setShowForm(false);
                 setEditingItem(null);
@@ -518,7 +409,7 @@ const GroceryItems = () => {
             </button>
           </form>
         </div>
-      )} */}
+      )}
     </div>
   );
 };

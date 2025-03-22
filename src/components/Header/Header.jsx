@@ -1,4 +1,4 @@
-import LogoText from "../../assets/Logo_Text.svg";
+import LogoText from "../../assets/Logo_slogan_cursive.svg";
 import "../Header/Header.scss";
 
 const Header = () => {
