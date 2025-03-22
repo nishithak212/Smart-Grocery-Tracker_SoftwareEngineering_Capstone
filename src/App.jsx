@@ -14,6 +14,7 @@ import GroceryItemsPage from "./pages/GroceryItemsPage/GroceryItemsPage";
 import ShoppingListPage from "./pages/ShoppingListPage/ShoppingListPage";
 import NotificationsPage from "./pages/NotificationsPage/NotificationsPage";
 import { useEffect, useState } from "react";
+import Header from "./components/Header/Header";
 import "./App.scss";
 
 const App = () => {
@@ -43,6 +44,7 @@ const App = () => {
 
   return (
     <Router>
+      <Header />
       <Navbar user={user} />
       <Routes>
         <Route

@@ -18,9 +18,9 @@ const Navbar = () => {
 
     return(
         <nav className ="navbar">
-            <h2>🍇🍅🍞GroceryGenie 🧞</h2>
+            {/* <h2>🍇🍅🍞GroceryGenie 🧞</h2> */}
             {user ? (
-                <ul>
+                <ul className="navbar__list">
                     <li><Link to="/grocery-items">Grocery Items</Link></li>
                     <li><Link to="/shopping-list">Shopping List</Link></li>
                     <li><Link to="/notifications">Notifications</Link></li>

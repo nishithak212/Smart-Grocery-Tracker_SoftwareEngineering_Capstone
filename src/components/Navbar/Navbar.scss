@@ -2,7 +2,11 @@
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
 
-    h2{
-        justify-self: center;
+    &__list, a{
+        list-style: none;
+        text-decoration: none;
+        display:flex;
+        justify-content: space-between;
+
     }
 }
