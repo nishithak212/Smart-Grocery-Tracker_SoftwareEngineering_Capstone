@@ -9,13 +9,13 @@
 html,
 body,
 #root {
-  // background-image: url("./assets/top-view-assortment-vegetables-paper-bag.jpg");
   background-color: #fffae5;
   height: 100%;
   margin: 0;
 }
 
 .app {
+  position: relative;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -24,18 +24,18 @@ body,
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-position: center;
-  color: black; 
+  color: black;
 }
 
 .app::before {
   content: "";
   position: absolute;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.4); 
+  background-color: rgba(0, 0, 0, 0.4);
   z-index: 0;
 }
 
-.app > * {
+.app>* {
   position: relative;
   z-index: 1;
 }
@@ -43,9 +43,13 @@ body,
 .main-content {
   flex: 1;
   padding: 1.5rem;
+  margin-top: 3.125rem;
 }
 
-h1, h2, p, button {
+h1,
+h2,
+p,
+button {
   color: #fff;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
 }

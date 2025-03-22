@@ -1,17 +1,14 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./Navbar.scss";
-// import { useContext } from "react";
-// import { AuthContext } from "../../context/AuthContext";
 
 const Navbar = () => {
-  // const {user, logout} = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const user = sessionStorage.getItem("user_id");
 
   const handleLogout = () => {
     sessionStorage.removeItem("user_id"); //to clear session storage
-    //logout();
     navigate("/login"); //redirects to login page after logout
   };
 
@@ -20,16 +17,34 @@ const Navbar = () => {
       {user ? (
         <ul className="navbar__list">
           <li>
-            <Link to="/grocery-items">Grocery Items</Link>
+            <Link
+              to="/grocery-items"
+              className={location.pathname === "/grocery-items" ? "active" : ""}
+            >
+              Grocery Items
+            </Link>
           </li>
           <li>
-            <Link to="/shopping-list">Shopping List</Link>
+            <Link
+              to="/shopping-list"
+              className={location.pathname === "/shopping-list" ? "active" : ""}
+            >
+              Shopping List
+            </Link>
           </li>
           <li>
-            <Link to="/notifications">Notifications</Link>
+            <Link
+              to="/notifications"
+              className={location.pathname === "/notifications" ? "active" : ""}
+            >
+              Notifications
+            </Link>
           </li>
           <li>
-            <button onClick={handleLogout}> Sign Out</button>
+            <button className="navbar__signout" onClick={handleLogout}>
+              {" "}
+              Sign Out
+            </button>
           </li>
         </ul>
       ) : (
