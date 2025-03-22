@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { API_URL } from "../../config.js";
+import CheckIcon from "../../assets/check-solid.svg";
 
 const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
@@ -80,14 +81,16 @@ const Notifications = () => {
       {error && <p>{error}</p>}
 
       {Array.isArray(notifications) && notifications.length > 0 ? (
-        <ul>
+        <table>
           {notifications.map((notification) => (
-            <li key={notification.id}>
+            <tr key={notification.id}>
               {notification.message}
-              <button onClick={() => markAsRead(notification.id)}>✔️</button>
-            </li>
+              <button onClick={() => markAsRead(notification.id)}>
+                <img src={CheckIcon} alt="Check-icon" width="16px"></img>
+              </button>
+            </tr>
           ))}
-        </ul>
+        </table>
       ) : (
         <p>No new notifications</p>
       )}
