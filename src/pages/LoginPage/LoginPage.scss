@@ -2,8 +2,8 @@
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     justify-content: space-evenly;
-    margin: 0 5rem 5rem 5rem;
-    background-color: #fffae5;
+   // margin:5rem;
+    //background-color: #fffae5;
 
     &__header {
         font-weight: 400;
@@ -19,7 +19,7 @@
         &-group {
             display: flex;
             flex-direction: column;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
 
             label {
                 margin-bottom: 0.3rem;
@@ -42,7 +42,7 @@
             width: fit-content;
             background-color: #ed6a5c;
             height: 2rem;
-            width: 5rem;
+            width: 6rem;
             color: white;
             border: none;
             border-radius: 0.25rem;
@@ -57,7 +57,7 @@
     }
 
     .signup-link {
-        color: #3b83e0;
+        color: #e06c3b;
         text-decoration: none;
 
         &:hover {

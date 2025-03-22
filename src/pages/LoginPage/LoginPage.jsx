@@ -39,9 +39,9 @@ const Login = () => {
       <h2 className="login__header">Login</h2>
       <form onSubmit={handleSubmit} className="login__form">
         <div className="login__form-group">
-          <label htmlFor="password" className="login__form--label">
+          {/* <label htmlFor="username" className="login__form--label">
             Username:
-          </label>
+          </label> */}
           <input
             className="login__form--input"
             type="text"
@@ -52,9 +52,9 @@ const Login = () => {
           />
         </div>
         <div className="login__form-group">
-          <label htmlFor="password" className="login__form--label">
+          {/* <label htmlFor="password" className="login__form--label">
             Password:
-          </label>
+          </label> */}
           <input
             className="login__form--input"
             type="password"
@@ -68,9 +68,9 @@ const Login = () => {
           Login
         </button>
         <p>
-          Don't have an account?{" "}
+          Don't have an account?
           <Link to="/signup" className="signup-link">
-            Sign Up!
+            {" "}Sign Up!
           </Link>
         </p>
       </form>

@@ -6,6 +6,7 @@ import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import Sort from "../../components/Sort/Sort.jsx";
 import EditIcon from "../../assets/pen-solid.svg";
 import DeleteIcon from "../../assets/trash-solid.svg";
+import "../GroceryItemsPage/GroceryItemsPage.scss"
 
 const GroceryItems = () => {
   const [items, setItems] = useState([]);
@@ -194,7 +195,7 @@ const GroceryItems = () => {
   });
 
   return (
-    <div>
+    <div className="grocery-page">
       <h2>Grocery Items</h2>
 
       <div className="user-actions">
@@ -213,6 +214,122 @@ const GroceryItems = () => {
           Add Item
         </button>
       </div>
+      {showForm && (
+        <div class="add-edit">
+          <h3>{editingItem ? "Edit Item" : "Add New Item"}</h3>
+          <form onSubmit={handleSubmit} class="add-edit__form">
+          <div className="add-edit__form-group">
+          <label htmlFor="item_name" className="add-edit__form--label">
+            Item Name:{" "}
+          </label>
+            <input
+              type="text"
+              name="item_name"
+              placeholder="Item Name"
+              value={formData.item_name}
+              onChange={handleChange}
+              required
+            />
+            </div>
+            <div className="add-edit__form-group">
+            <label htmlFor="quantity" className="add-edit__form--label">
+            Quantity:{" "}
+          </label>
+            <input
+              type="number"
+              name="quantity"
+              placeholder="Quantity"
+              value={formData.quantity}
+              onChange={handleChange}
+              required
+            />
+            </div>
+            <div className="add-edit__form-group">
+            <label htmlFor="unit" className="add-edit__form--label">
+            Unit:{" "}
+          </label>
+            <select
+              name="unit"
+              value={formData.unit}
+              onChange={handleChange}
+              required
+            >
+              <option value="mg">mg</option>
+              <option value="g">g</option>
+              <option value="kg">kg</option>
+              <option value="lbs">lbs</option>
+              <option value="ml">ml</option>
+              <option value="ltr">ltr</option>
+              <option value="gallon">gallon</option>
+              <option value="ct">ct</option>
+            </select>
+            </div>
+            <div className="add-edit__form-group">
+            <label htmlFor="category" className="add-edit__form--label">
+            Category:{" "}
+          </label>
+            <input
+              type="text"
+              name="category"
+              placeholder="Category"
+              value={formData.category}
+              onChange={handleChange}
+              required
+            />
+            </div>
+            <div className="add-edit__form-group">
+            <label htmlFor="expiration_date" className="add-edit__form--label">
+            Expiry Date:{" "}
+          </label>
+            <input
+              type="date"
+              name="expiration_date"
+              placeholder="Expiration Date"
+              value={formData.expiration_date}
+              onChange={handleChange}
+            />
+            </div>
+            <div className="add-edit__form-group">
+            <label htmlFor="threshold_qty" className="add-edit__form--label">
+            Threshold for Quantity:{" "}
+          </label>
+            <input
+              type="number"
+              name="threshold_qty"
+              placeholder="Threshold Quantity"
+              value={formData.threshold_qty}
+              onChange={handleChange}
+              required
+            />
+            </div>
+            <div className="add-edit__form-group">
+            <label htmlFor="threshold_alert" className="add-edit__form--label">
+            Threshold date for alert:{" "}
+          </label>
+            <input
+              type="date"
+              name="threshold_alert"
+              placeholder="Threshold Alert"
+              value={formData.threshold_alert}
+              onChange={handleChange}
+            />
+            </div>
+            <button type="submit" className="add-edit__form--submit">
+              {editingItem ? "Update Item" : "Add Item"}
+            </button>
+            <button
+              type="button" className="add-edit__form--cancel"
+              onClick={() => {
+                setShowForm(false);
+                setEditingItem(null);
+                resetForm();
+              }}
+            >
+              Cancel
+            </button>
+          </form>
+        </div>
+      )}
 
       {loading ? (
         <p>Loading...</p>
@@ -223,7 +340,7 @@ const GroceryItems = () => {
           {emptyMessage || "No grocery items found. Please add your list here!"}
         </p>
       ) : (
-        <table>
+        <table className="grocery-list">
           <thead>
             <tr>
               <th onClick={() => handleSort("item_name")}>
@@ -286,10 +403,14 @@ const GroceryItems = () => {
         </table>
       )}
 
-      {showForm && (
-        <div>
+      {/* {showForm && (
+        <div class="add-edit">
           <h3>{editingItem ? "Edit Item" : "Add New Item"}</h3>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} class="add-edit__form">
+          <div className="add-edit__form-group">
+          <label htmlFor="item_name" className="add-edit__form--label">
+            Item Name:{" "}
+          </label>
             <input
               type="text"
               name="item_name"
@@ -298,6 +419,11 @@ const GroceryItems = () => {
               onChange={handleChange}
               required
             />
+            </div>
+            <div className="add-edit__form-group">
+            <label htmlFor="quantity" className="add-edit__form--label">
+            Quantity:{" "}
+          </label>
             <input
               type="number"
               name="quantity"
@@ -306,6 +432,11 @@ const GroceryItems = () => {
               onChange={handleChange}
               required
             />
+            </div>
+            <div className="add-edit__form-group">
+            <label htmlFor="unit" className="add-edit__form--label">
+            Unit:{" "}
+          </label>
             <select
               name="unit"
               value={formData.unit}
@@ -321,6 +452,11 @@ const GroceryItems = () => {
               <option value="gallon">gallon</option>
               <option value="ct">ct</option>
             </select>
+            </div>
+            <div className="add-edit__form-group">
+            <label htmlFor="category" className="add-edit__form--label">
+            Category:{" "}
+          </label>
             <input
               type="text"
               name="category"
@@ -329,6 +465,11 @@ const GroceryItems = () => {
               onChange={handleChange}
               required
             />
+            </div>
+            <div className="add-edit__form-group">
+            <label htmlFor="expiration_date" className="add-edit__form--label">
+            Expiry Date:{" "}
+          </label>
             <input
               type="date"
               name="expiration_date"
@@ -336,6 +477,11 @@ const GroceryItems = () => {
               value={formData.expiration_date}
               onChange={handleChange}
             />
+            </div>
+            <div className="add-edit__form-group">
+            <label htmlFor="threshold_qty" className="add-edit__form--label">
+            Threshold for Quantity:{" "}
+          </label>
             <input
               type="number"
               name="threshold_qty"
@@ -344,6 +490,11 @@ const GroceryItems = () => {
               onChange={handleChange}
               required
             />
+            </div>
+            <div className="add-edit__form-group">
+            <label htmlFor="threshold_alert" className="add-edit__form--label">
+            Threshold date for alert:{" "}
+          </label>
             <input
               type="date"
               name="threshold_alert"
@@ -351,11 +502,12 @@ const GroceryItems = () => {
               value={formData.threshold_alert}
               onChange={handleChange}
             />
-            <button type="submit">
+            </div>
+            <button type="submit" className="add-edit__form--submit">
               {editingItem ? "Update Item" : "Add Item"}
             </button>
             <button
-              type="button"
+              type="button" className="add-edit__form--cancel"
               onClick={() => {
                 setShowForm(false);
                 setEditingItem(null);
@@ -366,7 +518,7 @@ const GroceryItems = () => {
             </button>
           </form>
         </div>
-      )}
+      )} */}
     </div>
   );
 };
