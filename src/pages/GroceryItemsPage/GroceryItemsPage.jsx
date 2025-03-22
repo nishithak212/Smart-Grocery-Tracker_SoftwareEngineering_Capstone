@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { API_URL } from "../../config.js";
 import { formatDate, formatForInputDate } from "../../utils/formatDate.js";
-import sortup from "../../assets/sort-up-solid.svg";
-import sortdown from "../../assets/sort-down-solid.svg";
-import sort from "../../assets/sort-solid.svg";
-//import filterIcon from "../../assets/filter-solid.svg";
+import SearchBar from "../../components/SearchBar/SearchBar.jsx";
+import Sort from "../../components/Sort/Sort.jsx";
+import EditIcon from "../../assets/pen-solid.svg";
+import DeleteIcon from "../../assets/trash-solid.svg";
 
 const GroceryItems = () => {
   const [items, setItems] = useState([]);
@@ -26,29 +26,25 @@ const GroceryItems = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortKey, setSortKey] = useState(null);
   const [sortOrder, setSortOrder] = useState("asc");
-  const [statusFilter, setStatusFilter] = useState("");
-  const [itemFilter, setItemFilter] = useState("");
-  const [categoryFilter, setCategoryFilter] = useState("");
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedStatuses, setSelectedStatuses] = useState([]);
 
   const user_id = sessionStorage.getItem("user_id");
 
-  //  Async function to fetch grocery items
   const fetchGroceryItems = async () => {
     try {
-      if (!user_id) {
-        throw new Error("User is not logged in");
-      }
+      if (!user_id) throw new Error("User is not logged in");
 
       const response = await axios.get(`${API_URL}/grocery`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${user_id}`, //send user_id in request
+          Authorization: `Bearer ${user_id}`,
         },
       });
 
       if (Array.isArray(response.data)) {
         setItems(response.data);
-        setEmptyMessage("");
         setEmptyMessage(response.data.message || "No grocery items found.");
       } else {
         setItems([]);
@@ -61,7 +57,6 @@ const GroceryItems = () => {
     }
   };
 
-  //Fetch groceries when component mounts
   useEffect(() => {
     fetchGroceryItems();
   }, []);
@@ -73,10 +68,7 @@ const GroceryItems = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (!user_id) {
-        setError("User is not logged in");
-        return;
-      }
+      if (!user_id) return setError("User is not logged in");
 
       if (editingItem) {
         await axios.put(`${API_URL}/grocery/${editingItem.id}`, formData, {
@@ -101,15 +93,6 @@ const GroceryItems = () => {
       setShowForm(false);
       setEditingItem(null);
       resetForm();
-      setFormData({
-        item_name: "",
-        quantity: "",
-        unit: "",
-        category: "",
-        expiration_date: "",
-        threshold_qty: "",
-        threshold_alert: "",
-      });
       fetchGroceryItems();
     } catch (error) {
       console.error("Error saving grocery item:", error);
@@ -138,8 +121,8 @@ const GroceryItems = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${user_id}`,
         },
-      }),
-        fetchGroceryItems();
+      });
+      fetchGroceryItems();
     } catch (error) {
       console.error("Error deleting grocery item:", error);
       setError("Failed to delete item");
@@ -167,27 +150,30 @@ const GroceryItems = () => {
     }
   };
 
-  const getSortIcon = (key) => {
-    if (sortKey === key) return <img src={sort} alt="sort" width="12" />;
-    return sortOrder === "asc" ? (
-      <img src={sortup} alt="Sort Ascending" width="12" />
-    ) : (
-      <img src={sortdown} alt="Sort Descending" width="12" />
-    );
-  };
+  //   const getSortIcon = (key) => {
+  //     if (sortKey === key) return <img src={sort} alt="sort" width="12" />;
+  //     return sortOrder === "asc" ? (
+  //       <img src={sortup} alt="Sort Ascending" width="12" />
+  //     ) : (
+  //       <img src={sortdown} alt="Sort Descending" width="12" />
+  //     );
+  //   };
 
   const filteredItems = items
     .filter((item) =>
       item.item_name.toLowerCase().includes(searchTerm.toLowerCase())
     )
-    .filter((item) => (itemFilter ? item.item_name === itemFilter : true))
     .filter((item) =>
-      categoryFilter ? item.category === categoryFilter : true
+      selectedItems.length ? selectedItems.includes(item.item_name) : true
     )
     .filter((item) =>
-      categoryFilter ? item.category === categoryFilter : true
+      selectedCategories.length
+        ? selectedCategories.includes(item.category)
+        : true
     )
-    .filter((item) => (statusFilter ? item.status === statusFilter : true));
+    .filter((item) =>
+      selectedStatuses.length ? selectedStatuses.includes(item.status) : true
+    );
 
   const sortedItems = [...filteredItems].sort((a, b) => {
     if (!sortKey) return 0;
@@ -207,57 +193,14 @@ const GroceryItems = () => {
     return 0;
   });
 
-  const uniqueItem = [...new Set(items.map((item) => item.item_name))];
-  const uniqueCategories = [...new Set(items.map((item) => item.category))];
-  const uniqueStatuses = [...new Set(items.map((item) => item.status))];
-
   return (
     <div>
       <h2>Grocery Items</h2>
-      <input
-        type="text"
-        placeholder="Search grcoery items..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
 
-      <div className="filter">
-        <p>Filters</p>
-        <select
-          value={itemFilter}
-          onChange={(e) => setItemFilter(e.target.value)}
-        >
-          <option value="">Items Filter </option>
-          {uniqueItem.map((item) => (
-            <option key={item} value={item}>
-              {item}
-            </option>
-          ))}
-        </select>
-
-        <select
-          value={categoryFilter}
-          onChange={(e) => setCategoryFilter(e.target.value)}
-        >
-          <option value="">Categories Filter</option>
-          {uniqueCategories.map((cat) => (
-            <option key={cat} value={cat}>
-              {cat}
-            </option>
-          ))}
-        </select>
-
-        <select
-          value={statusFilter}
-          onChange={(e) => setStatusFilter(e.target.value)}
-        >
-          <option value="">Status Filter</option>
-          {uniqueStatuses.map((status) => (
-            <option key={status} value={status}>
-              {status}
-            </option>
-          ))}
-        </select>
+      <div className="user-actions">
+        <div className="user-actions__search">
+          <SearchBar onSearch={(term) => setSearchTerm(term)} />
+        </div>
       </div>
       <div className="Add">
         <button
@@ -265,15 +208,6 @@ const GroceryItems = () => {
             resetForm();
             setShowForm(true);
             setEditingItem(null);
-            setFormData({
-              item_name: "",
-              quantity: "",
-              unit: "",
-              category: "",
-              expiration_date: "",
-              threshold_qty: "",
-              threshold_alert: "",
-            }); // Clear form values
           }}
         >
           Add Item
@@ -293,21 +227,38 @@ const GroceryItems = () => {
           <thead>
             <tr>
               <th onClick={() => handleSort("item_name")}>
-                Item Name {getSortIcon("item_name")}
+                Item Name{" "}
+                <Sort
+                  sortKey={sortKey}
+                  columnKey="item_name"
+                  sortOrder={sortOrder}
+                />
               </th>
               <th>Qty</th>
               <th>Unit</th>
               <th onClick={() => handleSort("category")}>
-                Category {getSortIcon("category")}
+                Category{" "}
+                <Sort
+                  sortKey={sortKey}
+                  columnKey="category"
+                  sortOrder={sortOrder}
+                />
               </th>
-
               <th onClick={() => handleSort("expiration_date")}>
-                Expiry Date {getSortIcon("expiration_date")}
+                Expiry Date{" "}
+                <Sort
+                  sortKey={sortKey}
+                  columnKey="expiration_date"
+                  sortOrder={sortOrder}
+                />
               </th>
-              <th>Threshold Qty</th>
-              <th>Threshold Alert</th>
               <th onClick={() => handleSort("status")}>
-                Status{getSortIcon("status")}
+                Status{" "}
+                <Sort
+                  sortKey={sortKey}
+                  columnKey="status"
+                  sortOrder={sortOrder}
+                />
               </th>
               <th>Actions</th>
             </tr>
@@ -320,12 +271,14 @@ const GroceryItems = () => {
                 <td>{item.unit}</td>
                 <td>{item.category}</td>
                 <td>{formatDate(item.expiration_date) || "N/A"}</td>
-                <td>{item.threshold_qty}</td>
-                <td>{formatDate(item.threshold_alert) || "N/A"}</td>
                 <td>{item.status}</td>
                 <td>
-                  <button onClick={() => handleEdit(item)}>✏️</button>
-                  <button onClick={() => handleDelete(item.id)}>🗑️</button>
+                  <button onClick={() => handleEdit(item)}>
+                    <img src={EditIcon} alt="Edit-icon" width="16px"></img>
+                  </button>
+                  <button onClick={() => handleDelete(item.id)}>
+                    <img src={DeleteIcon} alt="Delete-icon" width="16px"></img>
+                  </button>
                 </td>
               </tr>
             ))}
@@ -407,15 +360,6 @@ const GroceryItems = () => {
                 setShowForm(false);
                 setEditingItem(null);
                 resetForm();
-                setFormData({
-                  item_name: "",
-                  quantity: "",
-                  unit: "",
-                  category: "",
-                  expiration_date: "",
-                  threshold_qty: "",
-                  threshold_alert: "",
-                });
               }}
             >
               Cancel

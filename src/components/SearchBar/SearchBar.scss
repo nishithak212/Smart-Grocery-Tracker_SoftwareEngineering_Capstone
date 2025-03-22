@@ -1,0 +1,55 @@
+.search-container {
+    position: relative;
+    width: 18.75rem;
+    display: flex;
+    align-items: center;
+  
+    &__input {
+      width: 100%;
+      padding: 0.5rem 2.25rem 0.5rem 0.5rem; // padding-right leaves space for icons
+      font-size: 0.875rem;
+      border: 1px solid #ccc;
+      border-radius: 0.25rem;
+      outline: none;
+      transition: border-color 0.3s;
+  
+      &:focus {
+        border-color: orangered;
+      }
+    }
+  }
+  
+  .search-icon,
+  .clear-icon {
+    position: absolute;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    &__img {
+      width: 1rem;
+      height: 1rem;
+      opacity: 0.6;
+      transition: opacity 0.2s;
+  
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+  
+  .clear-icon {
+    right: 2.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .search-icon {
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
