@@ -1,11 +1,12 @@
-.navbar{
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.navbar {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
 
-    &__list, a{
+    &__list,
+    a {
         list-style: none;
         text-decoration: none;
-        display:flex;
+        display: flex;
         justify-content: space-between;
 
     }

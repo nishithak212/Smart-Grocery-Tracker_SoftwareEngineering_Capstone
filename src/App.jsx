@@ -15,6 +15,7 @@ import ShoppingListPage from "./pages/ShoppingListPage/ShoppingListPage";
 import NotificationsPage from "./pages/NotificationsPage/NotificationsPage";
 import { useEffect, useState } from "react";
 import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
 import "./App.scss";
 
 const App = () => {
@@ -44,8 +45,10 @@ const App = () => {
 
   return (
     <Router>
+      <div className="app">
       <Header />
       <Navbar user={user} />
+      <main className="main-content">
       <Routes>
         <Route
           path="/"
@@ -62,6 +65,9 @@ const App = () => {
         <Route path="/shopping-list" element={<ShoppingListPage />} />
         <Route path="/notifications" element={<NotificationsPage />} />
       </Routes>
+      </main>
+      <Footer />
+      </div>
     </Router>
   );
 };
