@@ -27,9 +27,10 @@ const GroceryItems = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortKey, setSortKey] = useState(null);
   const [sortOrder, setSortOrder] = useState("asc");
-  const [selectedItems, setSelectedItems] = useState([]);
-  const [selectedCategories, setSelectedCategories] = useState([]);
-  const [selectedStatuses, setSelectedStatuses] = useState([]);
+
+  const selectedItems = [];
+  const selectedCategories = [];
+  const selectedStatuses = [];
 
   const user_id = sessionStorage.getItem("user_id");
 
@@ -193,88 +194,6 @@ const GroceryItems = () => {
         </div>
       </div>
 
-      {loading ? (
-        <p>Loading...</p>
-      ) : error ? (
-        <p>{error}</p>
-      ) : filteredItems.length === 0 ? (
-        <p>
-          {emptyMessage || "No grocery items found. Please add your list here!"}
-        </p>
-      ) : (
-        <table className="grocery-list">
-          <thead>
-            <tr>
-              <th onClick={() => handleSort("item_name")}>
-                Item Name{" "}
-                <Sort
-                  sortKey={sortKey}
-                  columnKey="item_name"
-                  sortOrder={sortOrder}
-                />
-              </th>
-              <th>Qty</th>
-              <th>Unit</th>
-              <th onClick={() => handleSort("category")}>
-                Category{" "}
-                <Sort
-                  sortKey={sortKey}
-                  columnKey="category"
-                  sortOrder={sortOrder}
-                />
-              </th>
-              <th onClick={() => handleSort("expiration_date")}>
-                Expiry Date{" "}
-                <Sort
-                  sortKey={sortKey}
-                  columnKey="expiration_date"
-                  sortOrder={sortOrder}
-                />
-              </th>
-              <th onClick={() => handleSort("status")}>
-                Status{" "}
-                <Sort
-                  sortKey={sortKey}
-                  columnKey="status"
-                  sortOrder={sortOrder}
-                />
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {sortedItems.map((item) => (
-              <tr key={item.id}>
-                <td>{item.item_name}</td>
-                <td>{item.quantity}</td>
-                <td>{item.unit}</td>
-                <td>{item.category}</td>
-                <td>{formatDate(item.expiration_date) || "N/A"}</td>
-                <td>{item.status}</td>
-                <td>
-                  <button
-                    onClick={() => handleEdit(item)}
-                    className="action-icon"
-                  >
-                    <img src={EditIcon} alt="Edit-icon" width="16px"></img>
-                  </button>
-                  <button
-                    onClick={() => handleDelete(item.id)}
-                    className="action-icon"
-                  >
-                    <img
-                      src={DeleteIcon}
-                      alt="Delete-icon"
-                      width="16px"
-                      height="16px"
-                    />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-
       <div className="add">
         <button
           onClick={() => {
@@ -288,14 +207,15 @@ const GroceryItems = () => {
         </button>
       </div>
       {showForm && (
-        <div class="add-edit">
+        <div className="add-edit">
           <h3>{editingItem ? "Edit Item" : "Add New Item"}</h3>
-          <form onSubmit={handleSubmit} class="add-edit__form">
+          <form onSubmit={handleSubmit} className="add-edit__form">
             <div className="add-edit__form-group">
               <label htmlFor="item_name" className="add-edit__form--label">
                 Item Name:{" "}
               </label>
               <input
+                className="add-edit__form-group--input"
                 type="text"
                 name="item_name"
                 placeholder="Item Name"
@@ -309,6 +229,7 @@ const GroceryItems = () => {
                 Quantity:{" "}
               </label>
               <input
+                className="add-edit__form-group--input"
                 type="number"
                 name="quantity"
                 placeholder="Quantity"
@@ -322,6 +243,7 @@ const GroceryItems = () => {
                 Unit:{" "}
               </label>
               <select
+                className="add-edit__form-group--input"
                 name="unit"
                 value={formData.unit}
                 onChange={handleChange}
@@ -342,6 +264,7 @@ const GroceryItems = () => {
                 Category:{" "}
               </label>
               <input
+                className="add-edit__form-group--input"
                 type="text"
                 name="category"
                 placeholder="Category"
@@ -358,6 +281,7 @@ const GroceryItems = () => {
                 Expiry Date:{" "}
               </label>
               <input
+                className="add-edit__form-group--input"
                 type="date"
                 name="expiration_date"
                 placeholder="Expiration Date"
@@ -370,6 +294,7 @@ const GroceryItems = () => {
                 Threshold for quantity:{" "}
               </label>
               <input
+                className="add-edit__form-group--input"
                 type="number"
                 name="threshold_qty"
                 placeholder="Threshold Quantity"
@@ -386,6 +311,7 @@ const GroceryItems = () => {
                 Threshold date for alert:{" "}
               </label>
               <input
+                className="add-edit__form-group--input"
                 type="date"
                 name="threshold_alert"
                 placeholder="Threshold Alert"
@@ -393,21 +319,139 @@ const GroceryItems = () => {
                 onChange={handleChange}
               />
             </div>
-            <button type="submit" className="add-edit__form--submit">
-              {editingItem ? "Update Item" : "Add Item"}
-            </button>
-            <button
-              type="button"
-              className="add-edit__form--cancel"
-              onClick={() => {
-                setShowForm(false);
-                setEditingItem(null);
-                resetForm();
-              }}
-            >
-              Cancel
-            </button>
+            <div className="add-edit__form-actions">
+              <button type="submit" className="add-edit__form--submit">
+                {editingItem ? "Update" : "Submit"}
+              </button>
+              <button
+                type="button"
+                className="add-edit__form--cancel"
+                onClick={() => {
+                  setShowForm(false);
+                  setEditingItem(null);
+                  resetForm();
+                }}
+              >
+                Cancel
+              </button>
+            </div>
           </form>
+        </div>
+      )}
+
+      {loading ? (
+        <p>Loading...</p>
+      ) : error ? (
+        <p>{error}</p>
+      ) : filteredItems.length === 0 ? (
+        <p>
+          {emptyMessage || "No grocery items found. Please add your list here!"}
+        </p>
+      ) : (
+        <div className="grocery-wrapper">
+          <table className="grocery-list">
+            <thead>
+              <tr>
+                <th onClick={() => handleSort("item_name")}>
+                  <span className="header-cell">
+                    Item Name{" "}
+                    <Sort
+                      sortKey={sortKey}
+                      columnKey="item_name"
+                      sortOrder={sortOrder}
+                    />
+                  </span>
+                </th>
+                <th onClick={() => handleSort("quantity")}>
+                  <span className="header-cell">
+                    Qty
+                    <Sort
+                      sortKey={sortKey}
+                      columnKey="quantity"
+                      sortOrder={sortOrder}
+                    />
+                  </span>
+                </th>
+                <th onClick={() => handleSort("unit")}>
+                  <span className="header-cell">
+                    Unit
+                    <Sort
+                      sortKey={sortKey}
+                      columnKey="unit"
+                      sortOrder={sortOrder}
+                    />
+                  </span>
+                </th>
+                <th onClick={() => handleSort("category")}>
+                  <span className="header-cell">
+                    Category{" "}
+                    <Sort
+                      sortKey={sortKey}
+                      columnKey="category"
+                      sortOrder={sortOrder}
+                    />
+                  </span>
+                </th>
+                <th onClick={() => handleSort("expiration_date")}>
+                  <span className="header-cell">
+                    Expiry Date{" "}
+                    <Sort
+                      sortKey={sortKey}
+                      columnKey="expiration_date"
+                      sortOrder={sortOrder}
+                    />
+                  </span>
+                </th>
+                <th onClick={() => handleSort("status")}>
+                  <span className="header-cell">
+                    Status{" "}
+                    <Sort
+                      sortKey={sortKey}
+                      columnKey="status"
+                      sortOrder={sortOrder}
+                    />
+                  </span>
+                </th>
+
+                <th>{""}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sortedItems.map((item) => (
+                <tr key={item.id}>
+                  <td data-label="Item Name">{item.item_name}</td>
+                  <td data-label="Qty">{item.quantity}</td>
+                  <td data-label="Unit">{item.unit}</td>
+                  <td data-label="Category">{item.category}</td>
+                  <td data-label="Expiry Date">
+                    {formatDate(item.expiration_date) || "N/A"}
+                  </td>
+                  <td data-label="Status">
+                    {item.status.charAt(0).toUpperCase() + item.status.slice(1)}
+                  </td>
+                  <td>
+                    <button
+                      onClick={() => handleEdit(item)}
+                      className="action-icon"
+                    >
+                      <img src={EditIcon} alt="Edit-icon" width="16px"></img>
+                    </button>
+                    <button
+                      onClick={() => handleDelete(item.id)}
+                      className="action-icon"
+                    >
+                      <img
+                        src={DeleteIcon}
+                        alt="Delete-icon"
+                        width="16px"
+                        height="16px"
+                      />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       )}
     </div>
