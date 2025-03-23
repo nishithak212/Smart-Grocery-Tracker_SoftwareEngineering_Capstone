@@ -4,6 +4,7 @@ import { API_URL } from "../../config";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Sort from "../../components/Sort/Sort";
 import DeleteIcon from "../../assets/trash-solid.svg";
+import "../ShoppingListPage/ShoppingListPage.scss";
 
 const ShoppingListPage = () => {
   const [shoppingList, setShoppingList] = useState([]);
@@ -108,9 +109,11 @@ const ShoppingListPage = () => {
   });
 
   return (
-    <div>
-      <h2>Shopping List</h2>
-      <SearchBar onSearch={(term) => setSearchTerm(term)} />
+    <div className="shoppingList-page">
+      {/* <h2>Shopping List</h2> */}
+      <div className="user-actions__search">
+        <SearchBar onSearch={(term) => setSearchTerm(term)} />
+      </div>
       {loading ? (
         <p>Loading...</p>
       ) : error ? (
@@ -120,68 +123,91 @@ const ShoppingListPage = () => {
           Your shopping list is empty! No low stock, expired or finished items
         </p>
       ) : (
-        <table>
-          <thead>
-            <tr>
-              <th onClick={() => handleSort("item_name")}>
-                Item Name{" "}
-                <Sort
-                  sortKey={sortKey}
-                  columnKey="item_name"
-                  sortOrder={sortOrder}
-                />
-              </th>
-              <th onClick={() => handleSort("quantity")}>
-                Qty{" "}
-                <Sort
-                  sortKey={sortKey}
-                  columnKey="quantity"
-                  sortOrder={sortOrder}
-                />
-              </th>
-              <th onClick={() => handleSort("unit")}>
-                Unit{" "}
-                <Sort
-                  sortKey={sortKey}
-                  columnKey="unit"
-                  sortOrder={sortOrder}
-                />
-              </th>
-              <th onClick={() => handleSort("category")}>
-                Category{" "}
-                <Sort
-                  sortKey={sortKey}
-                  columnKey="category"
-                  sortOrder={sortOrder}
-                />
-              </th>
-              <th onClick={handleSortClick("status")}>
-                Status
-                <Sort
-                  sortKey={sortKey}
-                  columnKey="status"
-                  sortOrder={sortOrder}
-                />
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {sortedList.map((item) => (
-              <tr key={item.id}>
-                <td>{item.item_name}</td>
-                <td>{item.quantity}</td>
-                <td>{item.unit}</td>
-                <td>{item.category}</td>
-                <td>{item.status}</td>
-                <td>
-                  <button onClick={() => deleteShoppingItem(item.id)}>
-                    <img src={DeleteIcon} alt="Delete-icon" width="16px"></img>
-                  </button>
-                </td>
+        <div className="shoppingList-wrapper">
+          <table className="shoppingList-table">
+            <thead>
+              <tr>
+                <th onClick={() => handleSort("item_name")}>
+                  <span className="header-cell">
+                    Item Name{" "}
+                    <Sort
+                      sortKey={sortKey}
+                      columnKey="item_name"
+                      sortOrder={sortOrder}
+                    />
+                  </span>
+                </th>
+                <th onClick={() => handleSort("quantity")}>
+                  <span className="header-cell">
+                    Qty{" "}
+                    <Sort
+                      sortKey={sortKey}
+                      columnKey="quantity"
+                      sortOrder={sortOrder}
+                    />
+                  </span>
+                </th>
+                <th onClick={() => handleSort("unit")}>
+                  <span className="header-cell">
+                    Unit{" "}
+                    <Sort
+                      sortKey={sortKey}
+                      columnKey="unit"
+                      sortOrder={sortOrder}
+                    />
+                  </span>
+                </th>
+                <th onClick={() => handleSort("category")}>
+                  <span className="header-cell">
+                    Category{" "}
+                    <Sort
+                      sortKey={sortKey}
+                      columnKey="category"
+                      sortOrder={sortOrder}
+                    />
+                  </span>
+                </th>
+                <th onClick={handleSortClick("status")}>
+                  <span className="header-cell">
+                    Status
+                    <Sort
+                      sortKey={sortKey}
+                      columnKey="status"
+                      sortOrder={sortOrder}
+                    />
+                  </span>
+                </th>
+                <th>{""}</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {sortedList.map((item) => (
+                <tr key={item.id}>
+                  <td data-label="Item Name">{item.item_name}</td>
+                  <td data-label="Qty">{item.quantity}</td>
+                  <td data-label="Unit">{item.unit}</td>
+                  <td data-label="Category">{item.category}</td>
+                  <td data-label="Status">
+                    {item.status.charAt(0).toUpperCase() + item.status.slice(1)}
+                  </td>
+                  <td>
+                    <button
+                      onClick={() => deleteShoppingItem(item.id)}
+                      className="action-icon"
+                    >
+                      <img
+                        src={DeleteIcon}
+                        alt="Delete-icon"
+                        width="16px"
+                        height="16px"
+                      ></img>
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );

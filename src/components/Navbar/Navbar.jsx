@@ -6,6 +6,7 @@ const Navbar = () => {
   const location = useLocation();
 
   const user = sessionStorage.getItem("user_id");
+  const username = sessionStorage.getItem("username");
 
   const handleLogout = () => {
     sessionStorage.removeItem("user_id"); //to clear session storage
@@ -21,7 +22,7 @@ const Navbar = () => {
               to="/grocery-items"
               className={location.pathname === "/grocery-items" ? "active" : ""}
             >
-              Grocery Items
+              Grocery Items 🧃🥬
             </Link>
           </li>
           <li>
@@ -29,7 +30,7 @@ const Navbar = () => {
               to="/shopping-list"
               className={location.pathname === "/shopping-list" ? "active" : ""}
             >
-              Shopping List
+              Shopping List 📃
             </Link>
           </li>
           <li>
@@ -37,8 +38,11 @@ const Navbar = () => {
               to="/notifications"
               className={location.pathname === "/notifications" ? "active" : ""}
             >
-              Notifications
+              Notifications 🔔
             </Link>
+          </li>
+          <li>
+            <span className="navbar__username">Hello {username} !</span>
           </li>
           <li>
             <button className="navbar__signout" onClick={handleLogout}>

@@ -1,0 +1,122 @@
+@use "../../styles/partials/mixins" as *;
+
+.shoppingList-page {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    //padding: 2rem;
+    flex: 1;
+}
+
+.shoppingList-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.shoppingList-table {
+    width: 90%;
+    margin: 2rem auto;
+    border-collapse: collapse;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: rgba(255, 250, 229, 0.95);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4px);
+    opacity: 0.9;
+
+    th,
+    td {
+        padding: 0.5rem;
+        text-align: left;
+        font-size: 0.85rem;
+        border-bottom: 1px solid #ccc;
+        word-wrap: break-word;
+    }
+
+    thead {
+        background: #ff7043;
+        color: white;
+        font-weight: 400;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+
+        .header-cell {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            white-space: nowrap;
+            font-size: 0.85rem;
+        }
+    }
+
+    th {
+        white-space: nowrap;
+    }
+
+    td {
+        font-size: 0.95rem;
+    }
+
+    tbody tr {
+        transition: background-color 0.3s ease;
+    }
+
+    tbody tr:hover {
+        background-color: rgba(255, 112, 67, 0.15);
+    }
+
+    td {
+        border-bottom: 1px solid #e0e0e0;
+        color: #333;
+    }
+
+    td:last-child {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+    }
+
+    //Mobile view for shopping list table
+    @include mobile {
+        thead {
+            display: none;
+        }
+
+        tr {
+            display: block;
+            margin-bottom: 1rem;
+            // border-bottom: 2px solid #ccc;
+        }
+
+        td {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.6rem 1rem;
+            font-size: 0.95rem;
+            position: relative;
+        }
+
+        td::before {
+            content: attr(data-label);
+            font-weight: bold;
+            color: #333;
+        }
+
+        td:last-child {
+            justify-content: flex-end;
+        }
+    }
+}
+
+.action-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.2rem;
+    transition: transform 0.2s;
+    opacity: 0.7;
+
+    &:hover {
+        transform: scale(1.2);
+    }
+}

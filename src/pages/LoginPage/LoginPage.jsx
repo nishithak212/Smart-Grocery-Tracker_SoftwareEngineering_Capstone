@@ -25,6 +25,7 @@ const Login = () => {
 
       //store user_id in sessionStorage
       sessionStorage.setItem("user_id", response.data.user_id);
+      sessionStorage.setItem("username", response.data.username);
 
       //update AuthContext
       setUser(response.data.user_id);
