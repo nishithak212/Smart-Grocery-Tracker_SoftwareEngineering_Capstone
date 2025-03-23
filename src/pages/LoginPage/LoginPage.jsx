@@ -5,6 +5,7 @@ import { AuthContext } from "../../context/AuthContext.jsx";
 import { API_URL } from "../../config.js";
 import "./LoginPage.scss";
 
+
 const Login = () => {
   const [credentials, setCredentials] = useState({
     username: "",
@@ -17,6 +18,7 @@ const Login = () => {
   const handleChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -72,7 +74,7 @@ const Login = () => {
         <button type="submit" className="login__form--submit">
           Login
         </button>
-        <p>
+        <p className="p1">
           Don't have an account?
           <Link to="/signup" className="signup-link">
             {" "}

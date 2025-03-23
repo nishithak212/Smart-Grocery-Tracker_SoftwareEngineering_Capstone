@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { API_URL } from "../../config.js";
-import CheckIcon from "../../assets/check-solid.svg";
+import CheckIcon from "../../assets/icons/check-solid.svg";
+import "../NotificationsPage/NotificationsPage.scss"
 
 const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const user_id = sessionStorage.getItem("user_id");
+  
+   const user_id = sessionStorage.getItem("user_id");
     if (!user_id) {
       setError("User not logged in");
       return;
@@ -28,7 +29,7 @@ const Notifications = () => {
           },
         });
 
-        console.log("API Response:", response.data);
+       // console.log("API Response:", response.data);
 
         // Ensure notifications is an array
         if (Array.isArray(response.data)) {
@@ -41,7 +42,7 @@ const Notifications = () => {
         setError("Failed to fetch notifications.");
       }
     };
-
+    useEffect(() => {
     fetchNotifications();
   }, []);
 
@@ -63,36 +64,68 @@ const Notifications = () => {
           },
         }
       );
-
+      fetchNotifications();
       //Update UI to remove the read notification
       setNotifications((prev) =>
         prev.filter((notification) => notification.id !== id)
       );
+    
     } catch (error) {
       console.error("Error marking notification as read: ", error);
       setError("Failed to mark notification as read.");
     }
   };
 
+  //Mark all notifications as read
+  const markAllAsRead = async() => {
+    try{
+      await axios.put(
+        `${API_URL}/notifications/mark-all-read`,
+        {},
+        {
+          headers:{
+            "Content-Type":"application/json",
+            Authorization:`Bearer ${user_id}`,
+          },
+        }
+      );
+
+      setNotifications([]);
+    } catch(error){
+      console.error("Error marking all as read:", error );
+      setError("Failed to mark all notifications as read");
+    }
+  };
+
   return (
-    <div>
-      <h2>Notifications</h2>
+    <div className="notifications-list">
+      {/* <h2>Notifications</h2> */}
 
-      {error && <p>{error}</p>}
+      {error && <p className="notifications-list__error">{error}</p>}
 
+{notifications.length > 0 && (
+  <div className="notifications-list__actions">
+    <button className="mark-all-btn" onClick={markAllAsRead}>
+      Mark All Read
+    </button>
+    </div>
+)}
       {Array.isArray(notifications) && notifications.length > 0 ? (
-        <table>
-          {notifications.map((notification) => (
-            <tr key={notification.id}>
-              {notification.message}
-              <button onClick={() => markAsRead(notification.id)}>
-                <img src={CheckIcon} alt="Check-icon" width="16px"></img>
+          notifications.map((notification) => (
+            <div className="notification-card" key={notification.id}>
+            <p className="notification-card__message">{notification.message}</p>
+              <button
+              className="notification-card__button" onClick={() => markAsRead(notification.id)}>
+                <img 
+                src={CheckIcon} alt="Check-icon" width="16px">
+
+                </img>
+
               </button>
-            </tr>
-          ))}
-        </table>
+              </div>
+          ))
       ) : (
-        <p>No new notifications</p>
+        <p className="notifications-list__empty">No new notifications</p>
       )}
     </div>
   );

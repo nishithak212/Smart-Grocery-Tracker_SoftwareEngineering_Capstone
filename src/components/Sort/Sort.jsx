@@ -1,7 +1,7 @@
 import React from "react";
-import sort from "../../assets/sort-solid.svg";
-import sortup from "../../assets/sort-up-solid.svg";
-import sortdown from "../../assets/sort-down-solid.svg";
+import sort from "../../assets/icons/sort-solid.svg";
+import sortup from "../../assets/icons/sort-up-solid.svg";
+import sortdown from "../../assets/icons/sort-down-solid.svg";
 import "../Sort/Sort.scss";
 
 const SortIcon = ({ sortKey, columnKey, sortOrder }) => {

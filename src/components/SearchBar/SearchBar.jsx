@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
-import searchIcon from "../../assets/magnifying-glass-solid.svg";
-import clearIcon from "../../assets/xmark-solid.svg";
+import searchIcon from "../../assets/icons/magnifying-glass-solid.svg";
+import clearIcon from "../../assets/icons/xmark-solid.svg";
 import "./SearchBar.scss";
 
 const SearchBar = ({ onSearch }) => {

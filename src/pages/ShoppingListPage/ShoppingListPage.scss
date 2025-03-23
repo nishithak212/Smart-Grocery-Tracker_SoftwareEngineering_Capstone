@@ -4,7 +4,40 @@
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     //padding: 2rem;
     flex: 1;
+
 }
+
+.shoppingList-page__loading{
+    display: flex;
+        padding-left:1rem;
+        justify-self: center;
+        //text-align: center;
+        font-style: italic;
+        color:black;
+        background-color: rgba(255, 250, 229, 0.9);
+        border-radius: 0.2rem;
+        height:2rem;
+        border-left: 5px solid #ff7043;
+        opacity: 0.9;
+        width: 25rem;
+        margin-top:1rem;
+}
+
+    .shoppingList-page__empty{
+        display: flex;
+        padding-left:1rem;
+        justify-self: center;
+        //text-align: center;
+        font-style: italic;
+        color:black;
+        background-color: rgba(255, 250, 229, 0.9);
+        border-radius: 0.2rem;
+        height:2rem;
+        border-left: 5px solid #ff7043;
+        opacity: 0.9;
+        width: 25rem;
+      }
+
 
 .shoppingList-wrapper {
     width: 100%;

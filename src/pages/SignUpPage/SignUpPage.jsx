@@ -96,7 +96,7 @@ const SignUp = () => {
         <button type="submit" className="signup__form--submit">
           Sign Up
         </button>
-        <p className="login__text">
+        <p className="login__text p1">
           Have an account? Please{" "}
           <Link to="/login" className="login-link">
             Login

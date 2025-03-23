@@ -4,8 +4,8 @@ import { API_URL } from "../../config.js";
 import { formatDate, formatForInputDate } from "../../utils/formatDate.js";
 import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import Sort from "../../components/Sort/Sort.jsx";
-import EditIcon from "../../assets/pen-solid.svg";
-import DeleteIcon from "../../assets/trash-solid.svg";
+import EditIcon from "../../assets/icons/pen-solid.svg";
+import DeleteIcon from "../../assets/icons/trash-solid.svg";
 import "../GroceryItemsPage/GroceryItemsPage.scss";
 
 const GroceryItems = () => {
@@ -291,7 +291,7 @@ const GroceryItems = () => {
             </div>
             <div className="add-edit__form-group">
               <label htmlFor="threshold_qty" className="add-edit__form--label">
-                Threshold for quantity:{" "}
+                Set threshold for quantity:{" "}
               </label>
               <input
                 className="add-edit__form-group--input"
@@ -308,7 +308,7 @@ const GroceryItems = () => {
                 htmlFor="threshold_alert"
                 className="add-edit__form--label"
               >
-                Threshold date for alert:{" "}
+                Set threshold date for alert before expiry:{" "}
               </label>
               <input
                 className="add-edit__form-group--input"
@@ -344,7 +344,7 @@ const GroceryItems = () => {
       ) : error ? (
         <p>{error}</p>
       ) : filteredItems.length === 0 ? (
-        <p>
+        <p className="grocery-page__empty">
           {emptyMessage || "No grocery items found. Please add your list here!"}
         </p>
       ) : (
