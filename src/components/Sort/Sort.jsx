@@ -9,7 +9,12 @@ const SortIcon = ({ sortKey, columnKey, sortOrder }) => {
     return sortOrder === "asc" ? (
       <img className="sorticon" src={sortup} alt="Sort-Ascending" width="12" />
     ) : (
-      <img className="sorticon" src={sortdown} alt="Sort-Descending" width="12" />
+      <img
+        className="sorticon"
+        src={sortdown}
+        alt="Sort-Descending"
+        width="12"
+      />
     );
   }
 

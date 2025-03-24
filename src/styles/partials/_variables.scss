@@ -1,15 +1,23 @@
-$primary-orange:#ff7043;
-$primary-white:#ffff;
-$primary-darkCharcoal:#333;
-$primary-black:black;
+@use "./typography" as *;
+
+$primary-orange: #ff7043;
+$primary-white: #ffff;
+$primary-darkCharcoal: #333;
+$primary-black: black;
+$primary-lightBeige-background: #fff5ea;
 
 
-$secondary-chineseSilver:#ccc;
+$secondary-chineseSilver: #ccc;
 $secondary-darkPink: #b00441;
 $secondary-gray88: #e0e0e0;
 
 $backgroundColor-navbarLinks: rgba(128, 128, 128, 0.649);
-$backgroundColor-table:rgba(255, 250, 229, 0.95);
-$backgroundColor-trHover:rgba(255, 112, 67, 0.15);
-$background-button_link-Hover:linear-gradient(to right, #b00441, #ff7043);
+$backgroundColor-table: rgba(255, 250, 229, 0.95);
+$backgroundColor-trHover: rgba(255, 112, 67, 0.15);
+$background-button_link-Hover: linear-gradient(to right, #b00441, #ff7043);
 
+$primary-font: "Quicksand-Regular", "Segoe UI";
+
+$secondary-font: "Quicksand-Bold", "Segoe UI";
+
+$secondary-font-semiBold: "Quicksand-SemiBold", "Segoe UI";

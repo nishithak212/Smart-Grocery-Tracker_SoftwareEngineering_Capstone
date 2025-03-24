@@ -1,30 +1,29 @@
 import { createContext, useState, useEffect } from "react";
 
-export const AuthContext = createContext ();
+export const AuthContext = createContext();
 
-const AuthProvider = ({children}) => {
-    const [user, setUser] = useState(() => {
-        return localStorage.getItem("user") || null;
-    });
+const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
 
-    useEffect(() => {
-        if (user) {
-            localStorage.setItem("user", user);
-        } else {
-            localStorage.removeItem("user");
-        }
-    }, [user]);
+  // Load user_id from sessionStorage
+  useEffect(() => {
+    const storedUser = sessionStorage.getItem("user_id");
+    if (storedUser) {
+      setUser(storedUser);
+    }
+  }, []);
 
-    //Logout function
-    const logout = () => {
-        setUser(null);
-    };
+  const logout = () => {
+    sessionStorage.removeItem("user_id");
+    sessionStorage.removeItem("username");
+    setUser(null);
+  };
 
-    return(
-        <AuthContext.Provider value={{user, setUser, logout}}>
-            {children}
-        </AuthContext.Provider>
-    );
+  return (
+    <AuthContext.Provider value={{ user, setUser, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export default AuthProvider;

@@ -32,18 +32,15 @@ const ShoppingListPage = () => {
           Authorization: `Bearer ${user_id}`,
         },
       });
-    
 
-     if (response.data.message) {
+      if (response.data.message) {
         setShoppingList([]);
         setError(response.data.message);
         setEmptyMessage(response.data.message);
       } else {
         setShoppingList(response.data);
         setEmptyMessage("");
-
       }
-        
     } catch (error) {
       console.error("Error fetching shopping list:", error);
       setError("Failed to  load shopping list.");
@@ -114,21 +111,21 @@ const ShoppingListPage = () => {
     return 0;
   });
 
-
   return (
     <div className="shoppingList-page">
-      {/* <h2>Shopping List</h2> */}
       <div className="user-actions__search">
         <SearchBar onSearch={(term) => setSearchTerm(term)} />
       </div>
+      <div className="shoppingList-page__white-space"></div>
       {loading ? (
         <p className="shoppingList-page__loading">Loading...</p>
       ) : error ? (
         <p>{error}</p>
       ) : shoppingList.length === 0 ? (
         <p className="shoppingList-page__empty">
-        {emptyMessage ? emptyMessage : "Your shopping list is empty! No low stock, expired or out-of-stock items"}
-        {/* {emptyMessage} */}
+          {emptyMessage
+            ? emptyMessage
+            : "Your shopping list is empty! No low stock, expired or out-of-stock items"}
         </p>
       ) : (
         <div className="shoppingList-wrapper">

@@ -11,29 +11,22 @@ import ProtectedRoutes from "./components/ProtectedRoutes/ProtectedRoutes";
 import GroceryItemsPage from "./pages/GroceryItemsPage/GroceryItemsPage";
 import ShoppingListPage from "./pages/ShoppingListPage/ShoppingListPage";
 import NotificationsPage from "./pages/NotificationsPage/NotificationsPage";
-import { useEffect, useState } from "react";
+import { useEffect, useContext } from "react";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import "./App.scss";
+import { AuthContext } from "./context/AuthContext";
 
 const App = () => {
-  const [user, setUser] = useState(null);
+  const { user, setUser } = useContext(AuthContext);
 
-  //Sync session storage with state
+  // Sync sessionStorage with AuthContext
   useEffect(() => {
     const storedUser = sessionStorage.getItem("user_id");
-    setUser(storedUser);
-
-    const handleStorageChange = () => {
-      setUser(sessionStorage.getItem("user_id"));
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
-  }, []);
+    if (storedUser) {
+      setUser(storedUser);
+    }
+  }, [setUser]);
 
   return (
     <Router>
@@ -55,11 +48,12 @@ const App = () => {
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/login" element={<LoginPage />} />
 
-            {/* Protected Routes - Require Authentication */}
-            <Route element={<ProtectedRoutes user={user} />} />
-            <Route path="/grocery-items" element={<GroceryItemsPage />} />
-            <Route path="/shopping-list" element={<ShoppingListPage />} />
-            <Route path="/notifications" element={<NotificationsPage />} />
+            {/* Protected Routes */}
+            <Route element={<ProtectedRoutes />}>
+              <Route path="/grocery-items" element={<GroceryItemsPage />} />
+              <Route path="/shopping-list" element={<ShoppingListPage />} />
+              <Route path="/notifications" element={<NotificationsPage />} />
+            </Route>
           </Routes>
         </main>
         <Footer />

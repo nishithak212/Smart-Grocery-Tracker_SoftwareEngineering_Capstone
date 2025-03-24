@@ -1,64 +1,63 @@
 @use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
 
 .search-container {
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    position: relative;
-    width: 18.75rem;
-    display: flex;
-    align-items: center;
-  
-    &__input {
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      width: 100%;
-      padding: 0.5rem 2.25rem 0.5rem 0.5rem; // padding-right leaves space for icons
-      font-size: 0.875rem;
-     border: 2.5px solid #ccc;
-     //border-color: 1px solid #fffae5;
-      border-radius: 0.25rem;
-      outline: none;
-      transition: border-color 0.3s;
-      background-color: #fffae5;
-      opacity: 0.9;
-  
-      &:focus {
-        border-color: #FF7043;
-      }
+  position: relative;
+  width: 18.75rem;
+  display: flex;
+  align-items: center;
+
+  &__input {
+    font-family: $primary-font;
+    width: 100%;
+    padding: 0.5rem 2.25rem 0.5rem 0.5rem;
+    font-size: 0.875rem;
+    border: 2.5px solid $secondary-chineseSilver;
+    border-radius: 0.25rem;
+    outline: none;
+    transition: border-color 0.3s;
+    background-color: $primary-lightBeige-background;
+    opacity: 0.9;
+
+    &:focus {
+      border-color: $primary-orange;
     }
   }
-  
-  .search-icon,
-  .clear-icon {
-    position: absolute;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.25rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  
-    &__img {
-      width: 1rem;
-      height: 1rem;
-      opacity: 0.7;
-      transition: opacity 0.2s;
-  
-      &:hover {
-        opacity: 1;
-            transform: scale(1.2);
-          
-      }
+}
+
+.search-icon,
+.clear-icon {
+  position: absolute;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__img {
+    width: 1rem;
+    height: 1rem;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 1;
+      transform: scale(1.2);
+
     }
   }
-  
-  .clear-icon {
-    right: 2.25rem;
-    top: 50%;
-   transform: translateY(-50%);
-  }
-  
-  .search-icon {
-    right: 0.5rem;
-    top: 50%;
-   transform: translateY(-50%);
-  }
+}
+
+.clear-icon {
+  right: 2.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.search-icon {
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+}

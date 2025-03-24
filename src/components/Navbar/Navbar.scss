@@ -1,66 +1,69 @@
 @use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
 
 .navbar {
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: $primary-font;
+  display: flex;
+
+  &__list {
     display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    list-style: none;
+    width: 100%;
+    padding: 0;
+    margin: 0;
 
-    &__list {
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-        list-style: none;
-        width: 100%;
-        padding: 0;
-        margin: 0;
+    li {
+      a {
+        text-decoration: none;
+        color: $primary-white;
+        font-weight: 500;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+        padding: 0.5rem;
+        transition: all 0.3s ease;
 
-        li {
-            a {
-                text-decoration: none;
-                color: white;
-                font-weight: 500;
-                background: none;
-                border: none;
-                cursor: pointer;
-                font-size: 1rem;
-                padding: 0.5rem 1rem;
-                transition: all 0.3s ease;
-
-                &:hover {
-                    color: #ff7043;
-                }
-            }
-
-            .active {
-                background-color: rgba(128, 128, 128, 0.649);
-                border-radius: 1rem;
-                color: #ff7043;
-                font-weight: bold;
-            }
-
-            .navbar__username {
-                color: white;
-                font-weight: bold;
-                font-style: italic;
-            }
-
-            .navbar__signout {
-                margin: 0.5rem 0 0.5rem 0;
-                padding: 0.5rem 1rem;
-                background-color: #ff7043;
-                height: 2rem;
-                width: 6rem;
-                color: white;
-                border: none;
-                border-radius: 0.25rem;
-                cursor: pointer;
-                transition: background-color 0.2s ease;
-                font-weight: bold;
-
-                &:hover {
-                    background: linear-gradient(to right, #b00441, #ff7043);
-                    color: white;
-                }
-            }
+        &:hover {
+          color: $primary-orange;
         }
+      }
+
+      .active {
+        background-color: $backgroundColor-navbarLinks;
+        border-radius: 1rem;
+        color: $primary-orange;
+        font-family: $secondary-font;
+        font-size: 1rem;
+      }
+
+      .navbar__username {
+        color: $secondary-darkPink;
+        font-weight: bold;
+        font-family: $primary-font;
+      }
+
+      .navbar__signout {
+        font-family: $primary-font;
+        margin: 0.5rem 0 0.5rem 0;
+        padding: 0.5rem 1rem;
+        background-color: $primary-orange;
+        height: 2rem;
+        width: 6rem;
+        color: $primary-white;
+        border: none;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        font-weight: bold;
+
+        &:hover {
+          background: $background-button_link-Hover;
+          color: $primary-white;
+        }
+      }
     }
+  }
 }

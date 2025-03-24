@@ -1,3 +1,5 @@
+@use "./styles/partials/variables" as *;
+
 *,
 *::before,
 *::after {
@@ -9,7 +11,7 @@
 html,
 body,
 #root {
-  background-color: #fffae5;
+  background-color: $primary-lightBeige-background;
   height: 100%;
   margin: 0;
 }
@@ -24,7 +26,7 @@ body,
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-position: center;
-  color: black;
+  color: $primary-black;
 }
 
 .app::before {
@@ -47,13 +49,12 @@ body,
 }
 
 h1,
-h2
- {
-  color: #fff;
+h2 {
+  color: $primary-white;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
 }
 
-.p1{
-  color: #fff;
+.p1 {
+  color: $primary-white;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
 }

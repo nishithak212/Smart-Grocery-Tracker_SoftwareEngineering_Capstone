@@ -1,12 +1,22 @@
-.footer {
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    display: flex;
-    justify-content: center;
-    padding: 2rem 2rem;
-  //  background-color: #fffae5;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
 
-    &__logo {
-        width: 25px;
-        height: 25px;
+.footer {
+  font-family: $primary-font;
+  display: flex;
+  justify-content: center;
+  padding: 2rem 2rem;
+
+  &__logo {
+    width: 1.5625rem;
+    height: 1.5625rem;
+  }
+
+  .p1 {
+    font-size: 0.8rem;
+
+    @include tablet {
+      font-size: 1rem;
     }
+  }
 }

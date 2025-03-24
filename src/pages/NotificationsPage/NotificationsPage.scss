@@ -1,76 +1,79 @@
 @use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
 
-.notifications-list{
-    width:90%;
-    max-width: 800px;;
-    margin:2rem auto;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.notifications-list {
+  width: 90%;
+  max-width: 50rem;
+  margin: 2rem auto;
+  font-family: $primary-font;
 
-    &__error{
-        color:red;
-        text-align: center;
-        font-weight: bold;
+  &__error {
+    color: $secondary-darkPink;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+
+    .mark-all-btn {
+      font-family: $secondary-font;
+      margin: 0.5rem 0;
+      padding: 0.5rem 1rem;
+      width: 8rem;
+      height: 2.5rem;
+      background-color: $primary-orange;
+      color: $primary-white;
+      border: none;
+      border-radius: 0.25rem;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.2s ease;
+
+      @include desktop {
+        width: 8rem;
+      }
+
+      &:hover {
+        background: $background-button_link-Hover;
+        color: $primary-white;
+        border: none;
+        transition: background 0.3s ease;
+      }
     }
+  }
 
-    &__actions{
-        display: flex;
-        justify-content: flex-end;
-        .mark-all-btn{
-            margin: 0.5rem 0;
-            padding: 0.5rem 1rem;
-            width: 8rem;
-            height: 2.5rem;
-            background-color: #FF7043;
-            color: white;
-            border: none;
-            border-radius: 0.25rem;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background 0.2s ease;
-
-            @include desktop {
-                width: 8rem;
-            }
-
-            &:hover {
-                background: linear-gradient(to right, #B00441, #FF7043);
-                color: white;
-                border: none;
-                transition: background 0.3s ease;
-            }
-        }
-    }
-
-    &__empty{
-        text-align: center;
-        font-style: italic;
-        color:black;
-        background-color: rgba(255, 250, 229, 0.9);
-        border-radius: 0.2rem;
-        height:2rem;
-        border-left: 5px solid #ff7043;
-        opacity: 0.9;
-        width:25rem;
-        justify-self: center;
-    }
+  &__empty {
+    text-align: center;
+    font-style: italic;
+    color: $primary-black;
+    background-color: $backgroundColor-table;
+    border-radius: 0.2rem;
+    height: 2rem;
+    border-left: 0.3125rem solid $primary-orange;
+    opacity: 0.9;
+    width: 25rem;
+    justify-self: center;
+  }
 }
 
-.notification-card{
-    background-color: rgba(255, 250, 229, 0.9);
-  border-left: 5px solid #ff7043;
+.notification-card {
+  background-color: $backgroundColor-table;
+  border-left: 5px solid $primary-orange;
   border-radius: 0.5rem;
   margin-bottom: 1rem;
   padding: 1rem 1.25rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   opacity: 0.9;
 
 
   &__message {
-    font-size: 1rem;
-    color: black;
+    font-size: 0.95rem;
+    color: $primary-black;
     flex: 1;
     margin-right: 1rem;
   }
@@ -88,8 +91,7 @@
   }
 
   &__icon {
-    width: 20px;
-    height: 20px;
-    filter: brightness(0) saturate(100%) invert(47%) sepia(72%) saturate(408%) hue-rotate(329deg) brightness(102%) contrast(99%);
+    width: 1.25rem;
+    height: 1.25rem;
   }
 }
