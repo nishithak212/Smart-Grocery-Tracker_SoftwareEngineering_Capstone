@@ -90,8 +90,7 @@ No external APIs will be used. All APIs will be custom built.
 
 
 ### Mockups
-Please refer to Mockup.png image file
-![Mockup](image.png)
+Please refer to mockups folder
 
 ### Data
 
