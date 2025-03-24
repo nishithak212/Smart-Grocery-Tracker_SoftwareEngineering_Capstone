@@ -11,22 +11,14 @@ import ProtectedRoutes from "./components/ProtectedRoutes/ProtectedRoutes";
 import GroceryItemsPage from "./pages/GroceryItemsPage/GroceryItemsPage";
 import ShoppingListPage from "./pages/ShoppingListPage/ShoppingListPage";
 import NotificationsPage from "./pages/NotificationsPage/NotificationsPage";
-import { useEffect, useContext } from "react";
+import { useContext } from "react";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import "./App.scss";
 import { AuthContext } from "./context/AuthContext";
 
 const App = () => {
-  const { user, setUser } = useContext(AuthContext);
-
-  // Sync sessionStorage with AuthContext
-  useEffect(() => {
-    const storedUser = sessionStorage.getItem("user_id");
-    if (storedUser) {
-      setUser(storedUser);
-    }
-  }, [setUser]);
+  const { user } = useContext(AuthContext);
 
   return (
     <Router>
